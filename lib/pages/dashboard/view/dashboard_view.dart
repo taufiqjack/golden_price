@@ -1,35 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:golden_price/core/bloc/cubits/cubit/gold_price_cubit.dart';
+import 'package:golden_price/core/components/asset_path.dart';
+import 'package:golden_price/core/components/containers.dart';
+import 'package:golden_price/core/constants/color_customs.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
+import 'package:golden_price/core/extensions/money_extension.dart';
+import 'package:golden_price/core/models/gold_prices_mode/gold_price_mode.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
+import 'package:golden_price/widgets/common_text.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
 
   Widget build(BuildContext context, DashboardController controller) {
     return Scaffold(
+      backgroundColor: whiteTwo,
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        elevation: 0,
+        backgroundColor: whiteTwo,
         centerTitle: true,
-        backgroundColor: Colors.amber[700],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildPriceCard(),
-            const SizedBox(height: 16),
-            _buildChartPlaceholder(),
-            const SizedBox(height: 16),
-            _buildTrendCards(),
-            const SizedBox(height: 16),
-            _buildQuickActions(),
-          ],
-        ),
-      ),
+          padding: const EdgeInsets.all(16.0),
+          child: BlocBuilder<GoldPriceCubit, GoldPriceState>(
+            builder: (context, state) {
+              return state.when(
+                initial: () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SkeletonAnimation(
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: colorLightGreyFour),
+                      ),
+                    ).bottomPadded12(),
+                    SkeletonAnimation(
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: colorLightGreyFour),
+                      ),
+                    ),
+                  ],
+                ).paddedLTRB(left: 16, right: 16),
+                error: (message) => Center(
+                  child: CommonText(text: message),
+                ),
+                success: (goldPrice) => Column(
+                  children: [
+                    _buildPriceCard(goldPrice!),
+                    const SizedBox(height: 16),
+                    _buildChartPlaceholder(),
+                    const SizedBox(height: 16),
+                    _buildTrendCards(),
+                    const SizedBox(height: 16),
+                    _buildQuickActions(controller),
+                  ],
+                ),
+              );
+            },
+          )),
     );
   }
 
-  Widget _buildPriceCard() {
+  Widget _buildPriceCard(GoldPricesModel gold) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 4,
@@ -37,13 +78,39 @@ class DashboardView extends StatefulWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Text('Harga Emas Hari Ini',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Image.asset(
+              PathAsset.png('antam_logo'),
+              height: 50,
+            ),
+            CommonText(
+              text: 'Harga Emas Hari Ini',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
             SizedBox(height: 8),
-            Text('Rp2,310.50 / gram',
-                style: TextStyle(fontSize: 24, color: Colors.green)),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: gold.data?.length,
+              itemBuilder: (context, index) {
+                final goldPrice = gold.data![index];
+                return Align(
+                  alignment: Alignment.center,
+                  child: CommonText(
+                    text:
+                        '${double.parse(goldPrice.buy.toString()).toRupiah()} / ${goldPrice.unit}',
+                    fontSize: 24,
+                    color: Colors.green,
+                    fontWeight: FontWeight.w700,
+                  ),
+                );
+              },
+            ),
             SizedBox(height: 4),
-            Text('Updated: ${todayDate.toIndonesiaDatetime()}'),
+            CommonText(
+              text: 'Updated: ${todayDate.toIndonesiaDatetime()}',
+            ),
           ],
         ),
       ),
@@ -77,12 +144,14 @@ class DashboardView extends StatefulWidget {
     );
   }
 
-  Widget _buildQuickActions() {
+  Widget _buildQuickActions(DashboardController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            controller.refresh();
+          },
           icon: const Icon(Icons.refresh),
           label: const Text('Refresh'),
           style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
