@@ -18,3 +18,20 @@ class RestConfig {
     return _dio;
   }
 }
+
+class RestConfig2 {
+  static BaseOptions options() => BaseOptions(
+        baseUrl: '${dotenv.env[baseURLCurr]}',
+        sendTimeout: const Duration(hours: 24),
+        connectTimeout: const Duration(milliseconds: 100000),
+        receiveTimeout: const Duration(milliseconds: 100000),
+        followRedirects: false,
+        validateStatus: (status) => true,
+      );
+  final Dio _dio;
+  RestConfig2(this._dio);
+
+  Dio dio() {
+    return _dio;
+  }
+}

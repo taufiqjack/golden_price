@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:golden_price/core/bloc/cubits/cubit/gold_price_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
 import 'package:golden_price/core/components/asset_path.dart';
 import 'package:golden_price/core/components/containers.dart';
 import 'package:golden_price/core/constants/color_customs.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/extensions/money_extension.dart';
+import 'package:golden_price/core/models/currency_model/currency_model.dart';
 import 'package:golden_price/core/models/gold_prices_mode/gold_price_mode.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:golden_price/widgets/common_text.dart';
@@ -23,50 +25,83 @@ class DashboardView extends StatefulWidget {
         centerTitle: true,
       ),
       body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocBuilder<GoldPriceCubit, GoldPriceState>(
-            builder: (context, state) {
-              return state.when(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocBuilder<GoldPriceCubit, GoldPriceState>(
+          builder: (context, state) {
+            return state.when(
                 initial: () => Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SkeletonAnimation(
-                      child: Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: colorLightGreyFour),
-                      ),
-                    ).bottomPadded12(),
-                    SkeletonAnimation(
-                      child: Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: colorLightGreyFour),
-                      ),
-                    ),
-                  ],
-                ).paddedLTRB(left: 16, right: 16),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SkeletonAnimation(
+                          child: Container(
+                            height: 80,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: colorLightGreyFour),
+                          ),
+                        ).bottomPadded12(),
+                        SkeletonAnimation(
+                          child: Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: colorLightGreyFour),
+                          ),
+                        ),
+                      ],
+                    ).paddedLTRB(left: 16, right: 16),
                 error: (message) => Center(
-                  child: CommonText(text: message),
-                ),
-                success: (goldPrice) => Column(
-                  children: [
-                    _buildPriceCard(goldPrice!),
-                    const SizedBox(height: 16),
-                    _buildChartPlaceholder(),
-                    const SizedBox(height: 16),
-                    _buildTrendCards(),
-                    const SizedBox(height: 16),
-                    _buildQuickActions(controller),
-                  ],
-                ),
-              );
-            },
-          )),
+                      child: CommonText(text: message),
+                    ),
+                success: (goldPrice) =>
+                    BlocBuilder<CurrencyCubit, CurrencyState>(
+                      builder: (context, state) {
+                        return state.when(
+                          initial: () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SkeletonAnimation(
+                                child: Container(
+                                  height: 80,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: colorLightGreyFour),
+                                ),
+                              ).bottomPadded12(),
+                              SkeletonAnimation(
+                                child: Container(
+                                  height: 50,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: colorLightGreyFour),
+                                ),
+                              ),
+                            ],
+                          ).paddedLTRB(left: 16, right: 16),
+                          error: (message) => Center(
+                            child: CommonText(text: message),
+                          ),
+                          success: (currency) => Column(
+                            children: [
+                              _buildPriceCard(goldPrice!),
+                              const SizedBox(height: 16),
+                              _buildChartPlaceholder(currency!),
+                              const SizedBox(height: 16),
+                              // _buildTrendCards(),
+                              // const SizedBox(height: 16),
+                              _buildQuickActions(controller),
+                            ],
+                          ),
+                        );
+                      },
+                    ));
+          },
+        ),
+      ),
     );
   }
 
@@ -117,17 +152,28 @@ class DashboardView extends StatefulWidget {
     );
   }
 
-  Widget _buildChartPlaceholder() {
+  Widget _buildChartPlaceholder(CurrencyModel currency) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 4,
       child: SizedBox(
         height: 150,
-        child: Center(
-          child: Text(
-            'Price Chart Placeholder',
-            style: TextStyle(color: Colors.grey[600]),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: CommonText(
+                text: '1 USD',
+                fontSize: 18,
+                color: Colors.grey[600],
+              ),
+            ),
+            CommonText(
+              text: double.parse(currency.usd!.idr.toString()).toRupiah(),
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
         ),
       ),
     );
@@ -157,7 +203,7 @@ class DashboardView extends StatefulWidget {
           style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
         ),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: null,
           icon: const Icon(Icons.notifications),
           label: const Text('Set Alert'),
           style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),

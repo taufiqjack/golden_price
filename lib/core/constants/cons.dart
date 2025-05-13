@@ -5,7 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 String ENV_PATH = '.env';
 
 const baseURL = 'DOMAIN';
+const baseURLCurr = 'DOMAIN_CURR';
 const goldPrice = "/prices/hargaemas-com";
+const currency = "/npm/@fawazahmed0/currency-api@";
+const usd = "/v1/currencies/usd.json";
 
 const String IS_LOGIN = 'is_login';
 const String SPLASH = 'is_splash';

@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:golden_price/core/bloc/cubits/cubit/gold_price_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
 import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/depedencies/injection.dart';
 import 'package:golden_price/core/routes/app_route.dart';
@@ -55,6 +56,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => locator<GoldPriceCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<CurrencyCubit>(),
         ),
       ],
       child: MaterialApp(
