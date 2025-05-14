@@ -6,9 +6,11 @@ String ENV_PATH = '.env';
 
 const baseURL = 'DOMAIN';
 const baseURLCurr = 'DOMAIN_CURR';
+const baseURLIDX = 'DOMAIN_IDX';
 const goldPrice = "/prices/hargaemas-com";
 const currency = "/npm/@fawazahmed0/currency-api@";
 const usd = "/v1/currencies/usd.json";
+const top7 = "/primary/Home/GetTopValue";
 
 const String IS_LOGIN = 'is_login';
 const String SPLASH = 'is_splash';

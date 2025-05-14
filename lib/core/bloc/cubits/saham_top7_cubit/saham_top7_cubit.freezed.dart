@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'currency_cubit.dart';
+part of 'saham_top7_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,26 +15,26 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CurrencyState {
+mixin _$SahamTop7State {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String mesaage) error,
-    required TResult Function(CurrencyModel? currency) success,
+    required TResult Function(String message) error,
+    required TResult Function(List<IdxTop7Model>? sahamTop7) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String mesaage)? error,
-    TResult? Function(CurrencyModel? currency)? success,
+    TResult? Function(String message)? error,
+    TResult? Function(List<IdxTop7Model>? sahamTop7)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String mesaage)? error,
-    TResult Function(CurrencyModel? currency)? success,
+    TResult Function(String message)? error,
+    TResult Function(List<IdxTop7Model>? sahamTop7)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,23 +63,23 @@ mixin _$CurrencyState {
 }
 
 /// @nodoc
-abstract class $CurrencyStateCopyWith<$Res> {
-  factory $CurrencyStateCopyWith(
-          CurrencyState value, $Res Function(CurrencyState) then) =
-      _$CurrencyStateCopyWithImpl<$Res, CurrencyState>;
+abstract class $SahamTop7StateCopyWith<$Res> {
+  factory $SahamTop7StateCopyWith(
+          SahamTop7State value, $Res Function(SahamTop7State) then) =
+      _$SahamTop7StateCopyWithImpl<$Res, SahamTop7State>;
 }
 
 /// @nodoc
-class _$CurrencyStateCopyWithImpl<$Res, $Val extends CurrencyState>
-    implements $CurrencyStateCopyWith<$Res> {
-  _$CurrencyStateCopyWithImpl(this._value, this._then);
+class _$SahamTop7StateCopyWithImpl<$Res, $Val extends SahamTop7State>
+    implements $SahamTop7StateCopyWith<$Res> {
+  _$SahamTop7StateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -92,13 +92,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$CurrencyStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$SahamTop7StateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -109,13 +109,13 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CurrencyState.initial()';
+    return 'SahamTop7State.initial()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'CurrencyState.initial'));
+    properties..add(DiagnosticsProperty('type', 'SahamTop7State.initial'));
   }
 
   @override
@@ -131,8 +131,8 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String mesaage) error,
-    required TResult Function(CurrencyModel? currency) success,
+    required TResult Function(String message) error,
+    required TResult Function(List<IdxTop7Model>? sahamTop7) success,
   }) {
     return initial();
   }
@@ -141,8 +141,8 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String mesaage)? error,
-    TResult? Function(CurrencyModel? currency)? success,
+    TResult? Function(String message)? error,
+    TResult? Function(List<IdxTop7Model>? sahamTop7)? success,
   }) {
     return initial?.call();
   }
@@ -151,8 +151,8 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String mesaage)? error,
-    TResult Function(CurrencyModel? currency)? success,
+    TResult Function(String message)? error,
+    TResult Function(List<IdxTop7Model>? sahamTop7)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -196,7 +196,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   }
 }
 
-abstract class _Initial implements CurrencyState {
+abstract class _Initial implements SahamTop7State {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -206,28 +206,28 @@ abstract class _$$ErrorImplCopyWith<$Res> {
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String mesaage});
+  $Res call({String message});
 }
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$CurrencyStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$SahamTop7StateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mesaage = null,
+    Object? message = null,
   }) {
     return _then(_$ErrorImpl(
-      null == mesaage
-          ? _value.mesaage
-          : mesaage // ignore: cast_nullable_to_non_nullable
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -236,22 +236,22 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
-  const _$ErrorImpl(this.mesaage);
+  const _$ErrorImpl(this.message);
 
   @override
-  final String mesaage;
+  final String message;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CurrencyState.error(mesaage: $mesaage)';
+    return 'SahamTop7State.error(message: $message)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'CurrencyState.error'))
-      ..add(DiagnosticsProperty('mesaage', mesaage));
+      ..add(DiagnosticsProperty('type', 'SahamTop7State.error'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -259,13 +259,13 @@ class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
-            (identical(other.mesaage, mesaage) || other.mesaage == mesaage));
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mesaage);
+  int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -277,32 +277,32 @@ class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String mesaage) error,
-    required TResult Function(CurrencyModel? currency) success,
+    required TResult Function(String message) error,
+    required TResult Function(List<IdxTop7Model>? sahamTop7) success,
   }) {
-    return error(mesaage);
+    return error(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String mesaage)? error,
-    TResult? Function(CurrencyModel? currency)? success,
+    TResult? Function(String message)? error,
+    TResult? Function(List<IdxTop7Model>? sahamTop7)? success,
   }) {
-    return error?.call(mesaage);
+    return error?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String mesaage)? error,
-    TResult Function(CurrencyModel? currency)? success,
+    TResult Function(String message)? error,
+    TResult Function(List<IdxTop7Model>? sahamTop7)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(mesaage);
+      return error(message);
     }
     return orElse();
   }
@@ -342,12 +342,12 @@ class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   }
 }
 
-abstract class _Error implements CurrencyState {
-  const factory _Error(final String mesaage) = _$ErrorImpl;
+abstract class _Error implements SahamTop7State {
+  const factory _Error(final String message) = _$ErrorImpl;
 
-  String get mesaage;
+  String get message;
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -360,29 +360,29 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({CurrencyModel? currency});
+  $Res call({List<IdxTop7Model>? sahamTop7});
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$CurrencyStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$SahamTop7StateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currency = freezed,
+    Object? sahamTop7 = freezed,
   }) {
     return _then(_$SuccessImpl(
-      freezed == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as CurrencyModel?,
+      freezed == sahamTop7
+          ? _value._sahamTop7
+          : sahamTop7 // ignore: cast_nullable_to_non_nullable
+              as List<IdxTop7Model>?,
     ));
   }
 }
@@ -390,22 +390,30 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
-  const _$SuccessImpl(this.currency);
+  const _$SuccessImpl(final List<IdxTop7Model>? sahamTop7)
+      : _sahamTop7 = sahamTop7;
 
+  final List<IdxTop7Model>? _sahamTop7;
   @override
-  final CurrencyModel? currency;
+  List<IdxTop7Model>? get sahamTop7 {
+    final value = _sahamTop7;
+    if (value == null) return null;
+    if (_sahamTop7 is EqualUnmodifiableListView) return _sahamTop7;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CurrencyState.success(currency: $currency)';
+    return 'SahamTop7State.success(sahamTop7: $sahamTop7)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'CurrencyState.success'))
-      ..add(DiagnosticsProperty('currency', currency));
+      ..add(DiagnosticsProperty('type', 'SahamTop7State.success'))
+      ..add(DiagnosticsProperty('sahamTop7', sahamTop7));
   }
 
   @override
@@ -413,14 +421,15 @@ class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            (identical(other.currency, currency) ||
-                other.currency == currency));
+            const DeepCollectionEquality()
+                .equals(other._sahamTop7, _sahamTop7));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currency);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_sahamTop7));
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -432,32 +441,32 @@ class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String mesaage) error,
-    required TResult Function(CurrencyModel? currency) success,
+    required TResult Function(String message) error,
+    required TResult Function(List<IdxTop7Model>? sahamTop7) success,
   }) {
-    return success(currency);
+    return success(sahamTop7);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String mesaage)? error,
-    TResult? Function(CurrencyModel? currency)? success,
+    TResult? Function(String message)? error,
+    TResult? Function(List<IdxTop7Model>? sahamTop7)? success,
   }) {
-    return success?.call(currency);
+    return success?.call(sahamTop7);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String mesaage)? error,
-    TResult Function(CurrencyModel? currency)? success,
+    TResult Function(String message)? error,
+    TResult Function(List<IdxTop7Model>? sahamTop7)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(currency);
+      return success(sahamTop7);
     }
     return orElse();
   }
@@ -497,12 +506,12 @@ class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
   }
 }
 
-abstract class _Success implements CurrencyState {
-  const factory _Success(final CurrencyModel? currency) = _$SuccessImpl;
+abstract class _Success implements SahamTop7State {
+  const factory _Success(final List<IdxTop7Model>? sahamTop7) = _$SuccessImpl;
 
-  CurrencyModel? get currency;
+  List<IdxTop7Model>? get sahamTop7;
 
-  /// Create a copy of CurrencyState
+  /// Create a copy of SahamTop7State
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>

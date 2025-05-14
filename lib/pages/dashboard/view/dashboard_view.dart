@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.dart';
 import 'package:golden_price/core/components/asset_path.dart';
 import 'package:golden_price/core/components/containers.dart';
 import 'package:golden_price/core/constants/color_customs.dart';
@@ -9,6 +10,7 @@ import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/extensions/money_extension.dart';
 import 'package:golden_price/core/models/currency_model/currency_model.dart';
 import 'package:golden_price/core/models/gold_prices_mode/gold_price_mode.dart';
+import 'package:golden_price/core/models/idx_top7_model/idx_top7_model.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:golden_price/widgets/common_text.dart';
 import 'package:skeleton_text/skeleton_text.dart';
@@ -91,8 +93,37 @@ class DashboardView extends StatefulWidget {
                               const SizedBox(height: 16),
                               _buildChartPlaceholder(currency!),
                               const SizedBox(height: 16),
-                              // _buildTrendCards(),
-                              // const SizedBox(height: 16),
+                              BlocBuilder<SahamTop7Cubit, SahamTop7State>(
+                                builder: (context, state) {
+                                  return state.when(
+                                    initial: () => Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SkeletonAnimation(
+                                          child: Container(
+                                            height: 120,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: colorLightGreyFour),
+                                          ),
+                                        ).bottomPadded12(),
+                                      ],
+                                    ).paddedLTRB(left: 8, right: 8),
+                                    error: (message) => Center(
+                                      child: CommonText(text: message),
+                                    ),
+                                    success: (sahamTop7) => Column(
+                                      children: [
+                                        _buildPlaceholderSaham(sahamTop7!),
+                                        const SizedBox(height: 16),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                               _buildQuickActions(controller),
                             ],
                           ),
@@ -179,7 +210,29 @@ class DashboardView extends StatefulWidget {
     );
   }
 
-  Widget _buildTrendCards() {
+  Widget _buildPlaceholderSaham(List<IdxTop7Model> saham) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 4,
+      child: SizedBox(
+        height: 150,
+        child: ListView.builder(
+          itemCount: 2,
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            return CommonText(
+              text: '1 USD',
+              fontSize: 18,
+              color: Colors.grey[600],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  /* Widget _buildTrendCards() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
@@ -188,7 +241,7 @@ class DashboardView extends StatefulWidget {
         _TrendCard(title: '1M', change: '-0.8%'),
       ],
     );
-  }
+  } */
 
   Widget _buildQuickActions(DashboardController controller) {
     return Row(
