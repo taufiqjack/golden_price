@@ -1,4 +1,6 @@
 import 'package:alice/alice.dart';
+import 'package:alice/model/alice_configuration.dart';
+import 'package:alice_dio/alice_dio_adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -19,8 +21,11 @@ class Injection {
   late Dio _dio2;
   late Dio _dio3;
   Alice alice = Alice(
-    showNotification: true,
+    configuration: AliceConfiguration(
+      showNotification: true,
+    ),
   );
+  AliceDioAdapter aliceDioAdapter = AliceDioAdapter();
   final locator = GetIt.instance;
 
   Injection.init() {
@@ -35,22 +40,23 @@ class Injection {
     _dio = Dio(RestConfig.options());
     _dio2 = Dio(RestConfig2.options());
     _dio3 = Dio(RestConfigIDX.options());
+    alice.addAdapter(aliceDioAdapter);
     List<Interceptor> interceptors = [];
     if (kDebugMode) {
       _dio.interceptors
-        ..add(alice.getDioInterceptor())
+        ..add(aliceDioAdapter)
         ..add(LogInterceptor(
           requestBody: true,
           responseBody: true,
         ));
       _dio2.interceptors
-        ..add(alice.getDioInterceptor())
+        ..add(aliceDioAdapter)
         ..add(LogInterceptor(
           requestBody: true,
           responseBody: true,
         ));
       _dio3.interceptors
-        ..add(alice.getDioInterceptor())
+        ..add(aliceDioAdapter)
         ..add(LogInterceptor(
           requestBody: true,
           responseBody: true,

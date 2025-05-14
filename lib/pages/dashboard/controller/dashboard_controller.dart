@@ -22,7 +22,6 @@ class DashboardController extends State<DashboardView> {
 
   refresh() async {
     goldPricesModel = context.read<GoldPriceCubit>()..getGoldPrice(context);
-
     currencyCubit = context.read<CurrencyCubit>()
       ..getCurrency(context, todayDate.toStripID());
     context.read<SahamTop7Cubit>().getSahamTop7(context);

@@ -1,11 +1,11 @@
 class IdxTop7Model {
   String? code;
-  int? price;
-  int? change;
+  double? price;
+  dynamic change;
   double? percent;
-  int? volume;
-  int? value;
-  int? frequency;
+  dynamic volume;
+  dynamic value;
+  dynamic frequency;
 
   IdxTop7Model({
     this.code,
@@ -19,12 +19,12 @@ class IdxTop7Model {
 
   factory IdxTop7Model.fromJson(Map<String, dynamic> json) => IdxTop7Model(
         code: json['Code'] as String?,
-        price: json['Price'] as int?,
-        change: json['Change'] as int?,
-        percent: (json['Percent'] as num?)?.toDouble(),
-        volume: json['Volume'] as int?,
-        value: json['Value'] as int?,
-        frequency: json['Frequency'] as int?,
+        price: json['Price'] as double,
+        change: json['Change'] as dynamic,
+        percent: json['Percent'] as double,
+        volume: json['Volume'] as dynamic,
+        value: json['Value'] as dynamic,
+        frequency: json['Frequency'] as dynamic,
       );
 
   Map<String, dynamic> toJson() => {
