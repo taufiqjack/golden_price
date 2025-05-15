@@ -35,6 +35,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   alice_dio: ^1.0.6
   fl_chart: ^1.0.0
+  internet_connection_checker_plus: ^2.7.2
 
 dev_dependencies:
   flutter_test:

@@ -26,6 +26,7 @@ class DashboardView extends StatefulWidget {
         elevation: 0,
         backgroundColor: whiteTwo,
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
