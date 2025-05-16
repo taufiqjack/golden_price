@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     name: Build APK
+    environment: CI/CD
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -34,6 +35,14 @@ jobs:
 
       - name: Decode android/key.properties
         run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/key.properties
+
+      - name: create env file
+        run: |
+          touch .env
+          echo DOMAIN="${{ secrets.DOMAIN_CURR }}" >> .env
+          echo DOMAIN_CURR="${{ secrets.DOMAIN_CURR }}" >> .env
+          echo DOMAIN_IDX="${{ secrets.DOMAIN_IDX }}" >> .env
+          cat .env
 
       # Step ini digunakan untuk mengubah versi pada pubspec.yaml sesuai dengan tag yang di push
       - name: Replace YAML version with tag version
