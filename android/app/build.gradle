@@ -36,7 +36,7 @@ android {
             def envFile = rootProject.file("../.env")
             def env = new Properties()
             env.load(new FileInputStream(envFile))
-            storeFile rootProject.file(env['RELEASE_STORE_PATH'])
+            // storeFile rootProject.file(env['RELEASE_STORE_PATH'])
             storePassword env['RELEASE_STORE_PASSWORD']
             keyAlias env['RELEASE_KEY_ALIAS']
             keyPassword env['RELEASE_KEY_PASSWORD']

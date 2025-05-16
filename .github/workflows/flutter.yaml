@@ -42,7 +42,6 @@ jobs:
           echo DOMAIN="${{ secrets.DOMAIN }}" >> .env
           echo DOMAIN_CURR="${{ secrets.DOMAIN_CURR }}" >> .env
           echo DOMAIN_IDX="${{ secrets.DOMAIN_IDX }}" >> .env
-          echo RELEASE_STORE_PATH="${{ secrets.RELEASE_STORE_PATH }}" >> .env
           echo RELEASE_STORE_PASSWORD="${{ secrets.RELEASE_STORE_PASSWORD }}" >> .env
           echo RELEASE_KEY_ALIAS="${{ secrets.RELEASE_KEY_ALIAS }}" >> .env
           echo RELEASE_KEY_PASSWORD="${{ secrets.RELEASE_KEY_PASSWORD }}" >> .env
