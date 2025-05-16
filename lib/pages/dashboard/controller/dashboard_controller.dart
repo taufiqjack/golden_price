@@ -24,10 +24,10 @@ class DashboardController extends State<DashboardView> {
   CurrencyCubit currencyCubit = CurrencyCubit();
 
   refresh() async {
+    sahamTop7Cubit = context.read<SahamTop7Cubit>()..getSahamTop7(context);
     goldPricesModel = context.read<GoldPriceCubit>()..getGoldPrice(context);
     currencyCubit = context.read<CurrencyCubit>()
       ..getCurrency(context, todayDate.toStripID());
-    context.read<SahamTop7Cubit>().getSahamTop7(context);
     ConnectionInternet.isInternet().then(
       (connected) async {
         if (connected!) {
