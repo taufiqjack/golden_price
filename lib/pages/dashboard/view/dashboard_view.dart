@@ -31,14 +31,6 @@ class DashboardView extends StatefulWidget {
       ),
       body: Stack(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: controller.bannerAd!.size.height.toDouble(),
-              width: controller.bannerAd!.size.width.toDouble(),
-              child: AdWidget(ad: controller.bannerAd!),
-            ),
-          ),
           SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
             child: Padding(
@@ -162,6 +154,14 @@ class DashboardView extends StatefulWidget {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: SizedBox(
+              height: controller.bannerAd!.size.height.toDouble(),
+              width: controller.bannerAd!.size.width.toDouble(),
+              child: AdWidget(ad: controller.bannerAd!),
+            ),
+          ),
         ],
       ),
     );
@@ -178,7 +178,7 @@ class DashboardView extends StatefulWidget {
             Image.asset(
               PathAsset.png('antam_logo'),
               height: 50,
-            ),
+            ).topPadded4(),
             CommonText(
               text: 'Harga Emas Hari Ini',
               fontSize: 18,
