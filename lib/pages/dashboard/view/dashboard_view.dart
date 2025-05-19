@@ -14,6 +14,7 @@ import 'package:golden_price/core/models/gold_prices_mode/gold_price_mode.dart';
 import 'package:golden_price/core/models/idx_top7_model/idx_top7_model.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:golden_price/widgets/common_text.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class DashboardView extends StatefulWidget {
@@ -28,123 +29,140 @@ class DashboardView extends StatefulWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocBuilder<GoldPriceCubit, GoldPriceState>(
-            builder: (context, state) {
-              return state.when(
-                  initial: () => Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SkeletonAnimation(
-                            child: Container(
-                              height: 80,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: colorLightGreyFour),
-                            ),
-                          ).bottomPadded12(),
-                          SkeletonAnimation(
-                            child: Container(
-                              height: 50,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: colorLightGreyFour),
-                            ),
-                          ),
-                        ],
-                      ).paddedLTRB(left: 16, right: 16),
-                  error: (message) => Center(
-                        child: CommonText(text: message),
-                      ),
-                  success: (goldPrice) =>
-                      BlocBuilder<CurrencyCubit, CurrencyState>(
-                        builder: (context, state) {
-                          return state.when(
-                            initial: () => Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SkeletonAnimation(
-                                  child: Container(
-                                    height: 80,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: colorLightGreyFour),
-                                  ),
-                                ).bottomPadded12(),
-                                SkeletonAnimation(
-                                  child: Container(
-                                    height: 50,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: colorLightGreyFour),
-                                  ),
-                                ),
-                              ],
-                            ).paddedLTRB(left: 16, right: 16),
-                            error: (message) => Center(
-                              child: CommonText(text: message),
-                            ),
-                            success: (currency) => Column(
-                              children: [
-                                _buildPriceCard(goldPrice!),
-                                const SizedBox(height: 16),
-                                _buildChartPlaceholder(currency!),
-                                const SizedBox(height: 16),
-                                BlocBuilder<SahamTop7Cubit, SahamTop7State>(
-                                  builder: (context, state) {
-                                    return state.when(
-                                      initial: () => Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SkeletonAnimation(
-                                            child: Container(
-                                              height: 120,
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color: colorLightGreyFour),
-                                            ),
-                                          ).bottomPadded12(),
-                                        ],
-                                      ).paddedLTRB(left: 8, right: 8),
-                                      error: (message) => Center(
-                                        child: CommonText(text: message),
-                                      ),
-                                      success: (sahamTop7) => Column(
-                                        children: [
-                                          SizedBox(
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height /
-                                                2.5,
-                                            child: SingleChildScrollView(
-                                              child: _buildPlaceholderSaham(
-                                                  sahamTop7!),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 16),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                                _buildQuickActions(controller),
-                              ],
-                            ),
-                          );
-                        },
-                      ));
-            },
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: SizedBox(
+              height: controller.bannerAd!.size.height.toDouble(),
+              width: controller.bannerAd!.size.width.toDouble(),
+              child: AdWidget(ad: controller.bannerAd!),
+            ),
           ),
-        ),
+          SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: BlocBuilder<GoldPriceCubit, GoldPriceState>(
+                builder: (context, state) {
+                  return state.when(
+                      initial: () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SkeletonAnimation(
+                                child: Container(
+                                  height: 80,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: colorLightGreyFour),
+                                ),
+                              ).bottomPadded12(),
+                              SkeletonAnimation(
+                                child: Container(
+                                  height: 50,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: colorLightGreyFour),
+                                ),
+                              ),
+                            ],
+                          ).paddedLTRB(left: 16, right: 16),
+                      error: (message) => Center(
+                            child: CommonText(text: message),
+                          ),
+                      success: (goldPrice) =>
+                          BlocBuilder<CurrencyCubit, CurrencyState>(
+                            builder: (context, state) {
+                              return state.when(
+                                initial: () => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SkeletonAnimation(
+                                      child: Container(
+                                        height: 80,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: colorLightGreyFour),
+                                      ),
+                                    ).bottomPadded12(),
+                                    SkeletonAnimation(
+                                      child: Container(
+                                        height: 50,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: colorLightGreyFour),
+                                      ),
+                                    ),
+                                  ],
+                                ).paddedLTRB(left: 16, right: 16),
+                                error: (message) => Center(
+                                  child: CommonText(text: message),
+                                ),
+                                success: (currency) => Column(
+                                  children: [
+                                    _buildPriceCard(goldPrice!),
+                                    const SizedBox(height: 16),
+                                    _buildChartPlaceholder(currency!),
+                                    const SizedBox(height: 16),
+                                    BlocBuilder<SahamTop7Cubit, SahamTop7State>(
+                                      builder: (context, state) {
+                                        return state.when(
+                                          initial: () => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              SkeletonAnimation(
+                                                child: Container(
+                                                  height: 120,
+                                                  width: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color:
+                                                          colorLightGreyFour),
+                                                ),
+                                              ).bottomPadded12(),
+                                            ],
+                                          ).paddedLTRB(left: 8, right: 8),
+                                          error: (message) => Center(
+                                            child: CommonText(text: message),
+                                          ),
+                                          success: (sahamTop7) => Column(
+                                            children: [
+                                              SizedBox(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height /
+                                                        2.5,
+                                                child: SingleChildScrollView(
+                                                  child: _buildPlaceholderSaham(
+                                                      sahamTop7!),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 16),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    _buildQuickActions(controller),
+                                  ],
+                                ),
+                              );
+                            },
+                          ));
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
