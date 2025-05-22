@@ -51,22 +51,62 @@ class DashboardView extends StatefulWidget {
                             children: [
                               SkeletonAnimation(
                                 child: Container(
-                                  height: 80,
+                                  height: 150,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
                                       color: colorLightGreyFour),
                                 ),
-                              ).bottomPadded12(),
+                              ).bottomPadded20(),
                               SkeletonAnimation(
                                 child: Container(
-                                  height: 50,
+                                  height: 150,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
                                       color: colorLightGreyFour),
                                 ),
-                              ),
+                              ).bottomPadded20(),
+                              ListView.builder(
+                                  padding: EdgeInsets.only(),
+                                  itemCount: 3,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) => Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SkeletonAnimation(
+                                            child: Container(
+                                              height: 50,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: colorLightGreyFour),
+                                            ),
+                                          ).bottomPadded6(),
+                                          SkeletonAnimation(
+                                            child: Container(
+                                              height: 50,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: colorLightGreyFour),
+                                            ),
+                                          ).bottomPadded8(),
+                                          SkeletonAnimation(
+                                            child: Container(
+                                              height: 50,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: colorLightGreyFour),
+                                            ),
+                                          ),
+                                        ],
+                                      ))
                             ],
                           ).paddedLTRB(left: 16, right: 16),
                       error: (message) => Center(
@@ -81,24 +121,71 @@ class DashboardView extends StatefulWidget {
                                   children: [
                                     SkeletonAnimation(
                                       child: Container(
-                                        height: 80,
+                                        height: 150,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                             color: colorLightGreyFour),
                                       ),
-                                    ).bottomPadded12(),
+                                    ).bottomPadded20(),
                                     SkeletonAnimation(
                                       child: Container(
-                                        height: 50,
+                                        height: 150,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                             color: colorLightGreyFour),
                                       ),
-                                    ),
+                                    ).bottomPadded20(),
+                                    ListView.builder(
+                                        padding: EdgeInsets.only(),
+                                        itemCount: 3,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) => Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                SkeletonAnimation(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                        color:
+                                                            colorLightGreyFour),
+                                                  ),
+                                                ).bottomPadded6(),
+                                                SkeletonAnimation(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                        color:
+                                                            colorLightGreyFour),
+                                                  ),
+                                                ).bottomPadded8(),
+                                                SkeletonAnimation(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                        color:
+                                                            colorLightGreyFour),
+                                                  ),
+                                                ),
+                                              ],
+                                            )).bottomPadded12(),
                                   ],
                                 ).paddedLTRB(left: 16, right: 16),
                                 error: (message) => Center(
@@ -117,18 +204,57 @@ class DashboardView extends StatefulWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              SkeletonAnimation(
-                                                child: Container(
-                                                  height: 120,
-                                                  width: double.infinity,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      color:
-                                                          colorLightGreyFour),
-                                                ),
-                                              ).bottomPadded12(),
+                                              ListView.builder(
+                                                  padding: EdgeInsets.only(),
+                                                  itemCount: 3,
+                                                  shrinkWrap: true,
+                                                  itemBuilder:
+                                                      (context, index) => Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              SkeletonAnimation(
+                                                                child:
+                                                                    Container(
+                                                                  height: 50,
+                                                                  width: 80,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5),
+                                                                      color:
+                                                                          colorLightGreyFour),
+                                                                ),
+                                                              ).bottomPadded6(),
+                                                              SkeletonAnimation(
+                                                                child:
+                                                                    Container(
+                                                                  height: 50,
+                                                                  width: 80,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5),
+                                                                      color:
+                                                                          colorLightGreyFour),
+                                                                ),
+                                                              ).bottomPadded8(),
+                                                              SkeletonAnimation(
+                                                                child:
+                                                                    Container(
+                                                                  height: 50,
+                                                                  width: 80,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5),
+                                                                      color:
+                                                                          colorLightGreyFour),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )).bottomPadded12(),
                                             ],
                                           ).paddedLTRB(left: 8, right: 8),
                                           error: (message) => Center(
