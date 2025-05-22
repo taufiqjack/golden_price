@@ -23,12 +23,26 @@ class DashboardView extends StatefulWidget {
   Widget build(BuildContext context, DashboardController controller) {
     return Scaffold(
       backgroundColor: whiteTwo,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: whiteTwo,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: Stack(
+            children: [
+              AppBar(
+                elevation: 0,
+                backgroundColor: whiteTwo,
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  height: controller.bannerAd!.size.height.toDouble(),
+                  width: controller.bannerAd!.size.width.toDouble(),
+                  child: AdWidget(ad: controller.bannerAd!),
+                ),
+              ),
+            ],
+          )),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -43,7 +57,7 @@ class DashboardView extends StatefulWidget {
                             children: [
                               SkeletonAnimation(
                                 child: Container(
-                                  height: 150,
+                                  height: 170,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
@@ -100,7 +114,7 @@ class DashboardView extends StatefulWidget {
                                         ],
                                       ))
                             ],
-                          ).paddedLTRB(left: 16, right: 16),
+                          ).paddedLTRB(left: 8, right: 8),
                       error: (message) => Center(
                             child: CommonText(text: message),
                           ),
@@ -278,14 +292,6 @@ class DashboardView extends StatefulWidget {
                           ));
                 },
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: controller.bannerAd!.size.height.toDouble(),
-              width: controller.bannerAd!.size.width.toDouble(),
-              child: AdWidget(ad: controller.bannerAd!),
             ),
           ),
         ],
