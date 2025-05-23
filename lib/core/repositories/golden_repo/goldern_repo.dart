@@ -10,7 +10,7 @@ import 'package:golden_price/core/rest/rest_contract.dart';
 class GoldenPriceRepository {
   final RestContract _rest = GetIt.instance.get<RestContract>();
 
-  Future<GoldPricesModel> getGoldPrice(BuildContext context) async {
+  Future<GoldPricesModel?> getGoldPrice(BuildContext context) async {
     try {
       var response = await _rest.goldenPrice();
       var map = response.data;
@@ -18,6 +18,10 @@ class GoldenPriceRepository {
       log.setInt(STATUSCODE, response.statusCode!);
       if (response.statusCode == 200) {
         return GoldPricesModel.fromJson(map);
+      } else if (response.statusCode == 504) {
+        if (context.mounted) {
+          toast(context, 'error');
+        }
       } else {
         if (context.mounted) {
           toast(context, log.getString(MESSAGE).toString());

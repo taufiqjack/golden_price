@@ -7,6 +7,7 @@ import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.
 import 'package:golden_price/core/components/asset_path.dart';
 import 'package:golden_price/core/components/containers.dart';
 import 'package:golden_price/core/constants/color_customs.dart';
+import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/extensions/money_extension.dart';
 import 'package:golden_price/core/models/currency_model/currency_model.dart';
@@ -199,7 +200,7 @@ class DashboardView extends StatefulWidget {
                                 ),
                                 success: (currency) => Column(
                                   children: [
-                                    _buildPriceCard(goldPrice!),
+                                    _buildPriceCard(goldPrice),
                                     const SizedBox(height: 16),
                                     _buildChartPlaceholder(currency!),
                                     const SizedBox(height: 16),
@@ -299,7 +300,7 @@ class DashboardView extends StatefulWidget {
     );
   }
 
-  Widget _buildPriceCard(GoldPricesModel gold) {
+  Widget _buildPriceCard(GoldPricesModel? gold) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 4,
@@ -317,25 +318,33 @@ class DashboardView extends StatefulWidget {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 8),
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              itemCount: gold.data?.length,
-              itemBuilder: (context, index) {
-                final goldPrice = gold.data![index];
-                return Align(
-                  alignment: Alignment.center,
-                  child: CommonText(
-                    text:
-                        '${double.parse(goldPrice.buy.toString()).toRupiah()} / ${goldPrice.unit}',
-                    fontSize: 24,
-                    color: Colors.green,
-                    fontWeight: FontWeight.w700,
+            gold == null
+                ? Align(
+                    alignment: Alignment.center,
+                    child: CommonText(
+                      text: 'Data tidak tersedia',
+                      color: red,
+                      fontStyle: FontStyle.italic,
+                    ))
+                : ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: gold.data?.length,
+                    itemBuilder: (context, index) {
+                      final goldPrice = gold.data![index];
+                      return Align(
+                        alignment: Alignment.center,
+                        child: CommonText(
+                          text:
+                              '${double.parse(goldPrice!.buy.toString()).toRupiah()} / ${goldPrice.unit}',
+                          fontSize: 24,
+                          color: Colors.green,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
             SizedBox(height: 4),
             CommonText(
               text: 'Updated: ${todayDate.toIndonesiaDatetime()}',

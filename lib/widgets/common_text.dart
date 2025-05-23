@@ -12,6 +12,7 @@ class CommonText extends StatelessWidget {
   final bool? softWrap;
   final double? letterSpace;
   final TextDecoration? textDecoration;
+  final FontStyle? fontStyle;
 
   const CommonText({
     super.key,
@@ -25,6 +26,7 @@ class CommonText extends StatelessWidget {
     this.softWrap,
     this.textDecoration,
     this.letterSpace,
+    this.fontStyle,
   });
 
   @override
@@ -35,13 +37,13 @@ class CommonText extends StatelessWidget {
       textAlign: textAlign,
       softWrap: softWrap,
       style: TextStyle(
-        decoration: textDecoration,
-        color: color ?? blackNavy,
-        fontSize: fontSize,
-        fontFamily: fontFamily,
-        letterSpacing: letterSpace,
-        fontWeight: fontWeight,
-      ),
+          decoration: textDecoration,
+          color: color ?? blackNavy,
+          fontSize: fontSize,
+          fontFamily: fontFamily,
+          letterSpacing: letterSpace,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle),
     );
   }
 }
