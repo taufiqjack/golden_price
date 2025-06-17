@@ -5,6 +5,12 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def keystoreProperties = new Properties()
+   def keystorePropertiesFile = rootProject.file('key.properties')
+   if (keystorePropertiesFile.exists()) {
+       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+   }
+   
 android {
     namespace = "com.rencanggunung.golden_price"
     compileSdk = 35
@@ -32,7 +38,7 @@ android {
     }
 
     signingConfigs {
-       release{
+       /* release{
             def envFile = rootProject.file("../.env")
             def env = new Properties()
             env.load(new FileInputStream(envFile))
@@ -40,7 +46,14 @@ android {
             storePassword env['RELEASE_STORE_PASSWORD']
             keyAlias env['RELEASE_KEY_ALIAS']
             keyPassword env['RELEASE_KEY_PASSWORD']
-        }
+        } */
+
+        release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+           storePassword keystoreProperties['storePassword']
+       }
    }
 
     buildTypes {
