@@ -51,6 +51,7 @@ jobs:
 
         run: |
           touch .env
+          echo "RELEASE_STORE_PATH=${{ steps.android_keystore.outputs.filePath }}" > .env
           echo DOMAIN="${{ secrets.DOMAIN }}" >> .env
           echo DOMAIN_CURR="${{ secrets.DOMAIN_CURR }}" >> .env
           echo DOMAIN_IDX="${{ secrets.DOMAIN_IDX }}" >> .env
