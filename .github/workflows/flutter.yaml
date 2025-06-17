@@ -33,8 +33,7 @@ jobs:
       - name: Decode android/neumodore_key.jks
         run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/app/golden-keystore.jks
 
-      - name: Decode android/key.properties
-        run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/key.properties
+     
 
       - name: create env file
         run: |
@@ -47,6 +46,24 @@ jobs:
           echo RELEASE_KEY_ALIAS="${{ secrets.RELEASE_KEY_ALIAS }}" >> .env
           echo RELEASE_KEY_PASSWORD="${{ secrets.RELEASE_KEY_PASSWORD }}" >> .env
           cat .env
+
+      - uses: actions/checkout@v4
+      - name: Download Android keystores
+        id: android_keystore
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: golden-keystore.jks
+          encodedString: ${{ secrets.RELEASE_STORE_PATH }}
+
+      - name: Create key.properties
+        run: |
+          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+          echo "storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" >> android/key.properties
+
+      # - name: Decode android/key.properties
+      #   run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/key.properties
 
       # Step ini digunakan untuk mengubah versi pada pubspec.yaml sesuai dengan tag yang di push
       - name: Replace YAML version with tag version
