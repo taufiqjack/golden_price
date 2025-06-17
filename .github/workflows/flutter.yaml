@@ -64,7 +64,7 @@ jobs:
         run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/app/golden-keystore.jks
 
       - name: Decode android/key.properties
-        run: echo .env | base64 --decode > android/key.properties
+        run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/key.properties
 
       # Step ini digunakan untuk mengubah versi pada pubspec.yaml sesuai dengan tag yang di push
       - name: Replace YAML version with tag version
