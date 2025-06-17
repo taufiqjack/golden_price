@@ -59,6 +59,14 @@ jobs:
           fileName: golden-keystore.jks
           encodedString: ${{ secrets.RELEASE_STORE_PATH }}
 
+      - uses: actions/checkout@v4
+      - name: Download env
+        id: android_env
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName:.env
+          encodedString: ${{ secrets.KEY_PROPERTIES_PROD }}
+
 
       - name: Decode android/neumodore_key.jks
         run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/app/golden-keystore.jks
