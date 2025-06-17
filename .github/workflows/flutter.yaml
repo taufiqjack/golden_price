@@ -51,7 +51,7 @@ jobs:
 
         run: |
           touch .env
-          echo "RELEASE_STORE_PATH=${{ steps.android_keystore.outputs.filePath }}" > .env
+          echo "storeFile=${{ steps.android_env.outputs.filePath }}" > .env
           echo DOMAIN="${{ secrets.DOMAIN }}" >> .env
           echo DOMAIN_CURR="${{ secrets.DOMAIN_CURR }}" >> .env
           echo DOMAIN_IDX="${{ secrets.DOMAIN_IDX }}" >> .env
@@ -69,13 +69,13 @@ jobs:
           fileName: golden-keystore.jks
           encodedString: ${{ secrets.RELEASE_STORE_PATH }}
 
-      # - uses: actions/checkout@v4
-      # - name: Download env
-      #   id: android_env
-      #   uses: timheuer/base64-to-file@v1.2
-      #   with:
-      #     fileName: .env
-      #     encodedString: ${{ secrets.KEY_PROPERTIES_PROD }}
+      - uses: actions/checkout@v4
+      - name: Download env
+        id: android_env
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: .env
+          encodedString: ${{ secrets.KEY_PROPERTIES_PROD }}
 
       - name: Decode android/neumodore_key.jks
         run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/app/golden-keystore.jks
