@@ -478,6 +478,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  hijriyah_indonesia:
+    dependency: "direct main"
+    description:
+      name: hijriyah_indonesia
+      sha256: "60feacc2fbde64536c50bec469d6459ccb144a32a6c18743c26547ffcafd6f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.7"
   http:
     dependency: transitive
     description:

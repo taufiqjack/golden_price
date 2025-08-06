@@ -12,12 +12,14 @@ import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/depedencies/injection.dart';
 import 'package:golden_price/core/routes/app_route.dart';
 import 'package:golden_price/pages/dashboard/view/dashboard_view.dart';
+import 'package:hijriyah_indonesia/hijriyah_indonesia.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  Hijriyah.setLocal('id');
   await dotenv.load(fileName: ENV_PATH);
   Injection.init();
   log = await SharedPreferences.getInstance();
@@ -74,7 +76,6 @@ class MyApp extends StatelessWidget {
             const Breakpoint(start: 821, end: 1000, name: DESKTOP),
           ]);
         },
-        title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,

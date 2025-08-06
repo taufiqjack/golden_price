@@ -16,6 +16,7 @@ import 'package:golden_price/core/models/idx_top7_model/idx_top7_model.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:golden_price/widgets/common_text.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hijriyah_indonesia/hijriyah_indonesia.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class DashboardView extends StatefulWidget {
@@ -202,90 +203,101 @@ class DashboardView extends StatefulWidget {
                                   children: [
                                     _buildPriceCard(goldPrice),
                                     const SizedBox(height: 16),
-                                    _buildChartPlaceholder(currency!),
-                                    const SizedBox(height: 16),
-                                    BlocBuilder<SahamTop7Cubit, SahamTop7State>(
-                                      builder: (context, state) {
-                                        return state.when(
-                                          initial: () => Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              ListView.builder(
-                                                  padding: EdgeInsets.only(),
-                                                  itemCount: 3,
-                                                  shrinkWrap: true,
-                                                  itemBuilder:
-                                                      (context, index) => Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              SkeletonAnimation(
-                                                                child:
-                                                                    Container(
-                                                                  height: 50,
-                                                                  width: 80,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height /
+                                              1.8,
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            _buildChartPlaceholder(currency!),
+                                            const SizedBox(height: 16),
+                                            BlocBuilder<SahamTop7Cubit,
+                                                SahamTop7State>(
+                                              builder: (context, state) {
+                                                return state.when(
+                                                  initial: () => Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ListView.builder(
+                                                          padding:
+                                                              EdgeInsets.only(),
+                                                          itemCount: 3,
+                                                          shrinkWrap: true,
+                                                          itemBuilder: (context,
+                                                                  index) =>
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  SkeletonAnimation(
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          50,
+                                                                      width: 80,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
                                                                               5),
-                                                                      color:
-                                                                          colorLightGreyFour),
-                                                                ),
-                                                              ).bottomPadded6(),
-                                                              SkeletonAnimation(
-                                                                child:
-                                                                    Container(
-                                                                  height: 50,
-                                                                  width: 80,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                                                          color:
+                                                                              colorLightGreyFour),
+                                                                    ),
+                                                                  ).bottomPadded6(),
+                                                                  SkeletonAnimation(
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          50,
+                                                                      width: 80,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
                                                                               5),
-                                                                      color:
-                                                                          colorLightGreyFour),
-                                                                ),
-                                                              ).bottomPadded8(),
-                                                              SkeletonAnimation(
-                                                                child:
-                                                                    Container(
-                                                                  height: 50,
-                                                                  width: 80,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                                                          color:
+                                                                              colorLightGreyFour),
+                                                                    ),
+                                                                  ).bottomPadded8(),
+                                                                  SkeletonAnimation(
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          50,
+                                                                      width: 80,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
                                                                               5),
-                                                                      color:
-                                                                          colorLightGreyFour),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          )).bottomPadded12(),
-                                            ],
-                                          ).paddedLTRB(left: 8, right: 8),
-                                          error: (message) => Center(
-                                            child: CommonText(text: message),
-                                          ),
-                                          success: (sahamTop7) => Column(
-                                            children: [
-                                              SizedBox(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height /
-                                                        2.5,
-                                                child: SingleChildScrollView(
-                                                  child: _buildPlaceholderSaham(
-                                                      sahamTop7!),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 16),
-                                            ],
-                                          ),
-                                        );
-                                      },
+                                                                          color:
+                                                                              colorLightGreyFour),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )).bottomPadded12(),
+                                                    ],
+                                                  ).paddedLTRB(
+                                                      left: 8, right: 8),
+                                                  error: (message) => Center(
+                                                    child: CommonText(
+                                                        text: message),
+                                                  ),
+                                                  success: (sahamTop7) =>
+                                                      Column(
+                                                    children: [
+                                                      _buildPlaceholderSaham(
+                                                          sahamTop7!),
+                                                      const SizedBox(
+                                                          height: 16),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            _buildQuickActions(controller),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    _buildQuickActions(controller),
                                   ],
                                 ),
                               );
@@ -347,7 +359,8 @@ class DashboardView extends StatefulWidget {
                   ),
             SizedBox(height: 4),
             CommonText(
-              text: 'Updated: ${todayDate.toIndonesiaDatetime()}',
+              text:
+                  'Updated: ${todayDate.toIndonesiaDatetime()} / ${Hijriyah.fromDate(DateTime.parse(time), isPasaran: true).fullDate()} H',
             ),
           ],
         ),
