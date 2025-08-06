@@ -30,7 +30,7 @@ jobs:
       # Jika tidak ingin sign apk maka bisa di comment saja 2 step ini
       # Disini saya comment karena scopenya cuma sampai Github saja
 
-    
+      # echo RELEASE_STORE_PATH=${{ steps.android_keystore.outputs.filePath }}" > android/.env
 
       - name: Create key.properties
         run: |
@@ -40,8 +40,18 @@ jobs:
           echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" >> android/key.properties
 
       - name: create env file
+        env:
+          DOMAIN: ${{ secrets.DOMAIN }}
+          DOMAIN_CURR: ${{ secrets.DOMAIN_CURR }}
+          DOMAIN_IDX: ${{ secrets.DOMAIN_IDX }}
+          RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          RELEASE_STORE_PATH: ${{ secrets.RELEASE_STORE_PATH }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+
         run: |
           touch .env
+          echo "storeFile=${{ steps.android_env.outputs.filePath }}" > .env
           echo DOMAIN="${{ secrets.DOMAIN }}" >> .env
           echo DOMAIN_CURR="${{ secrets.DOMAIN_CURR }}" >> .env
           echo DOMAIN_IDX="${{ secrets.DOMAIN_IDX }}" >> .env
@@ -66,7 +76,6 @@ jobs:
         with:
           fileName: .env
           encodedString: ${{ secrets.KEY_PROPERTIES_PROD }}
-
 
       - name: Decode android/neumodore_key.jks
         run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/app/golden-keystore.jks
@@ -97,13 +106,13 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/*.aab"
-      
+
       - name: Save APPBUNDLE to Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: APPBUNDLE
           path: build/app/outputs/bundle/release/app-release.aab
-  
+
   release_internal:
     #2. Release Artifact ke Internal track Play Console
     name: Release Artifacts to internal track
@@ -124,6 +133,6 @@ jobs:
           packageName: com.rencanggunung.golden_price
           releaseFiles: app-release.aab
           track: internal
-          status: draft         
+          status: draft
           isDraftRelease: false
           changesNotSentForReview: true
