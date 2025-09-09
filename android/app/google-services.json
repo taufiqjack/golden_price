@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "567486705463",
+    "project_id": "emas-saham",
+    "storage_bucket": "emas-saham.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567486705463:android:ed9962e2b82f919dba74b2",
+        "android_client_info": {
+          "package_name": "com.rencanggunung.golden_price"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_exFRDYarQ6PjrcwKrp95ReRXdWLq2Fs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

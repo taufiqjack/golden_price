@@ -7,7 +7,6 @@ import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.
 import 'package:golden_price/core/components/asset_path.dart';
 import 'package:golden_price/core/components/containers.dart';
 import 'package:golden_price/core/constants/color_customs.dart';
-import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/extensions/money_extension.dart';
 import 'package:golden_price/core/models/currency_model/currency_model.dart';

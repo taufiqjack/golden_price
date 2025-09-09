@@ -2,7 +2,7 @@ name: golden_price
 description: "A new Flutter project."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.2+10
+version: 1.0.3+14
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -20,15 +20,15 @@ dependencies:
     git:
       url: https://github.com/taufiqjack/alice_new
       ref: master
-  flutter_dotenv: ^5.2.1
+  flutter_dotenv: ^6.0.0
   freezed_annotation: ^3.0.0
   flutter_bloc: ^9.1.1
   build_runner: ^2.4.13
   freezed: ^3.0.6
   shared_preferences: ^2.5.3
-  fluttertoast: ^8.2.8
+  fluttertoast: ^8.2.12
   rflutter_alert: ^2.0.7
-  awesome_dialog: ^3.2.1
+  awesome_dialog_plus: ^3.2.3
   page_transition: ^2.2.1
   responsive_framework: ^1.5.1
   skeleton_text: ^3.0.1
@@ -37,12 +37,13 @@ dependencies:
   internet_connection_checker_plus: ^2.7.2
   google_mobile_ads: ^6.0.0
   hijriyah_indonesia: ^0.1.7
+  firebase_core: ^4.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
@@ -50,4 +51,4 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
-    # - .env
+    - .env

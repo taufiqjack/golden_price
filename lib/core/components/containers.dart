@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:awesome_dialog_plus/awesome_dialog_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golden_price/core/constants/color_customs.dart';

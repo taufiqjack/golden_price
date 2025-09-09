@@ -1,5 +1,6 @@
 import 'package:alice/alice.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.
 import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/depedencies/injection.dart';
 import 'package:golden_price/core/routes/app_route.dart';
+import 'package:golden_price/firebase_options.dart';
 import 'package:golden_price/pages/dashboard/view/dashboard_view.dart';
 import 'package:hijriyah_indonesia/hijriyah_indonesia.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -23,6 +25,9 @@ Future<void> main() async {
   await dotenv.load(fileName: ENV_PATH);
   Injection.init();
   log = await SharedPreferences.getInstance();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     EasyLocalization(
