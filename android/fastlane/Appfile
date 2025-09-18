@@ -1,0 +1,2 @@
+json_key_file("/Users/taufiqjack/Documents/dev/keystore/teak-catwalk-472405-b4-1ed124cf43ff.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.rencanggunung.golden_price") # e.g. com.krausefx.app

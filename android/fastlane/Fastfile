@@ -1,0 +1,76 @@
+# # This file contains the fastlane.tools configuration
+# # You can find the documentation at https://docs.fastlane.tools
+# #
+# # For a list of all available actions, check out
+# #
+# #     https://docs.fastlane.tools/actions
+# #
+# # For a list of all available plugins, check out
+# #
+# #     https://docs.fastlane.tools/plugins/available-plugins
+# #
+
+# # Uncomment the line if you want fastlane to automatically update itself
+# # update_fastlane
+
+# default_platform(:android)
+
+# platform :android do
+#   desc "Runs all the tests"
+#   lane :test do
+#     gradle(task: "test")
+#   end
+
+#   desc "Submit a new Beta Build to Crashlytics Beta"
+#   lane :beta do
+#     gradle(task: "clean assembleRelease")
+#     crashlytics
+  
+#     # sh "your_script.sh"
+#     # You can also use other beta testing services here
+#   end
+
+#   desc "Deploy a new version to the Google Play"
+#   lane :deploy do
+#     gradle(task: "clean assembleRelease")
+#     upload_to_play_store
+#   end
+
+#   lane :internal_testing do
+#     gradle(
+#       task: "bundle",
+#       build_type: "Release"
+#     ) # or assembleReleaseBundle
+#   upload_to_play_store(
+#     # Path to your APK or AAB
+#     version_code: 15,
+#     aab: "../build/app/outputs/bundle/release/app-release.aab", 
+#     # Set the track to 'internal' for internal testing
+#     track: "internal", 
+#     # Optional: Provide release notes for testers
+#     # release_notes: {
+#     #   "en-US" => "Internal build for testing new features."
+#     # }
+#   )
+#   end
+# end
+
+default_platform(:android)
+
+platform :android do
+  desc "Clean project and build release AAB"
+  lane :build_release do
+    gradle(task: "clean")
+    gradle(task: "bundle", build_type: "Release")
+  end
+  desc "Deploy to Internal Testing Track"
+  lane :deploy_internal do
+    build_release
+    supply(
+      track: 'internal',
+      version_code: 15,
+      version_name:'1.0.3',
+      aab: "../build/app/outputs/bundle/release/app-release.aab"
+    )
+  end
+end
