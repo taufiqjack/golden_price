@@ -83,3 +83,30 @@ const Color orange = Color(0xFFFFA500);
 const Color orangeTwo = Color(0xFF93681A);
 const Color blue = Color(0xFF3669C9);
 const Color transparent = Colors.transparent;
+
+// Adobe Spectrum Colors
+const Color spectrumGray50 = Color(0xFFF8F8F8); // App Background
+const Color spectrumGray100 = Color(0xFFFFFFFF); // Card Background
+const Color spectrumGray200 = Color(0xFFEAEAEA); // Borders
+const Color spectrumGray300 = Color(0xFFD5D5D5);
+const Color spectrumGray400 = Color(0xFFB3B3B3);
+const Color spectrumGray500 = Color(0xFF909090); // Icons
+const Color spectrumGray600 = Color(0xFF6E6E6E);
+const Color spectrumGray700 = Color(0xFF4B4B4B); // Secondary Text
+const Color spectrumGray800 = Color(0xFF2C2C2C);
+const Color spectrumGray900 = Color(0xFF151515); // Primary Text
+
+const Color spectrumBlue900 = Color(0xFF005AA3); // Primary Action
+const Color spectrumBlue1000 = Color(0xFF00447C); // Primary Action Hover/Active
+
+const Color spectrumGreen = Color(0xFF2D9D78); // Success
+const Color spectrumRed = Color(0xFFE34850); // Error/Negative
+const Color spectrumOrange = Color(0xFFF1802C); // Warning
+
+// Core Dashboard Colors
+const Color coreBgColor = Color(0xFF212332);
+const Color coreSecondaryColor = Color(0xFF2A2D3E);
+const Color corePrimaryColor = Color(0xFF2697FF);
+const Color coreTextColor = Colors.white;
+const Color coreGrayColor = Colors.white54;
+

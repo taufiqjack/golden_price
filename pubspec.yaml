@@ -2,7 +2,7 @@ name: golden_price
 description: "A new Flutter project."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.3+15
+version: 1.0.4+16
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -23,8 +23,6 @@ dependencies:
   flutter_dotenv: ^6.0.0
   freezed_annotation: ^3.0.0
   flutter_bloc: ^9.1.1
-  build_runner: ^2.4.13
-  freezed: ^3.0.6
   shared_preferences: ^2.5.3
   fluttertoast: ^8.2.12
   rflutter_alert: ^2.0.7
@@ -43,6 +41,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  build_runner: ^2.4.13
+  freezed: ^3.0.6
+  json_serializable: ^6.11.4
+  
   flutter_lints: ^6.0.0
 
 flutter:

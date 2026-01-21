@@ -13,10 +13,10 @@ void toast(ctx, String text) async {
     padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: greyLightFour.withOpacity(0.8))]),
+        boxShadow: [BoxShadow(color: black.withOpacity(0.8))]),
     child: CommonText(
       text: text,
-      color: black,
+      color: white.withOpacity(0.8),
     ),
   ));
 }
