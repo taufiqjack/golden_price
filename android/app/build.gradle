@@ -8,11 +8,23 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
-def keystoreProperties = new Properties()
-   def keystorePropertiesFile = rootProject.file('key.properties')
-   if (keystorePropertiesFile.exists()) {
-       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-   }
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+    def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+    if (flutterVersionCode == null) {
+        flutterVersionCode = '1'
+    }
+
+    def flutterVersionName = localProperties.getProperty('flutter.versionName')
+    if (flutterVersionName == null) {
+        flutterVersionName = '1.0'
+    }       
    
 android {
     namespace = "com.rencanggunung.golden_price"
@@ -28,16 +40,15 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
-
-    defaultConfig {
+defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.rencanggunung.golden_price"
         // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = 24
         targetSdk = 36
-        versionCode = 15
-        versionName = '1.0.3'
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
     }
 
     signingConfigs {
@@ -64,6 +75,24 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.gt 
             signingConfig = signingConfigs.release
+             android.applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def date = new Date()
+                    if(output.getFilter(com.android.build.OutputFile.ABI) != null){
+                        outputFileName = "Emas_saham-v${versionName}_${date.format('ddMMyyyy')}_${output.getFilter(com.android.build.OutputFile.ABI)}_${variant.name}.apk"
+                    }else{
+                        outputFileName = "Emas_saham-v${versionName}_${date.format('ddMMyyyy')}_${variant.name}.apk"
+                    }
+                }
+                tasks.named("sign${variant.name.capitalize()}Bundle", com.android.build.gradle.internal.tasks.FinalizeBundleTask) {
+                    File file = finalBundleFile.asFile.get()
+            
+            
+                     def date = new Date()
+                    File finalFile = new File(file.parentFile, "Emas_saham_${variant.name}-v${versionName}+${versionCode}-${date.format('ddMMyyyy')}.aab")
+                    finalBundleFile.set(finalFile)
+                }
+            }
         }
     }
 }
