@@ -28,19 +28,19 @@ class Usd {
   double? bake;
   double? bam;
   double? bat;
-  int? bbd;
+  double? bbd;
   double? bch;
   double? bdt;
   double? bef;
   double? bgn;
   double? bhd;
   double? bif;
-  int? bmd;
+  double? bmd;
   double? bnb;
   double? bnd;
   double? bob;
   double? brl;
-  int? bsd;
+  double? bsd;
   double? bsv;
   double? bsw;
   double? btc;
@@ -69,7 +69,7 @@ class Usd {
   double? cro;
   double? crv;
   double? cspr;
-  int? cuc;
+  double? cuc;
   double? cup;
   double? cve;
   double? cvx;
@@ -92,7 +92,7 @@ class Usd {
   double? egp;
   double? enj;
   double? eos;
-  int? ern;
+  double? ern;
   double? esp;
   double? etb;
   double? etc;
@@ -221,7 +221,7 @@ class Usd {
   double? one;
   double? op;
   double? ordi;
-  int? pab;
+  double? pab;
   double? paxg;
   double? pen;
   double? pepe;
@@ -709,19 +709,19 @@ class Usd {
         bake: (json['bake'] as num?)?.toDouble(),
         bam: (json['bam'] as num?)?.toDouble(),
         bat: (json['bat'] as num?)?.toDouble(),
-        bbd: json['bbd'] as int?,
+        bbd: (json['bbd'] as num?)?.toDouble(),
         bch: (json['bch'] as num?)?.toDouble(),
         bdt: (json['bdt'] as num?)?.toDouble(),
         bef: (json['bef'] as num?)?.toDouble(),
         bgn: (json['bgn'] as num?)?.toDouble(),
         bhd: (json['bhd'] as num?)?.toDouble(),
         bif: (json['bif'] as num?)?.toDouble(),
-        bmd: json['bmd'] as int?,
+        bmd: (json['bmd'] as num?)?.toDouble(),
         bnb: (json['bnb'] as num?)?.toDouble(),
         bnd: (json['bnd'] as num?)?.toDouble(),
         bob: (json['bob'] as num?)?.toDouble(),
         brl: (json['brl'] as num?)?.toDouble(),
-        bsd: json['bsd'] as int?,
+        bsd: (json['bsd'] as num?)?.toDouble(),
         bsv: (json['bsv'] as num?)?.toDouble(),
         bsw: (json['bsw'] as num?)?.toDouble(),
         btc: (json['btc'] as num?)?.toDouble(),
@@ -750,7 +750,7 @@ class Usd {
         cro: (json['cro'] as num?)?.toDouble(),
         crv: (json['crv'] as num?)?.toDouble(),
         cspr: (json['cspr'] as num?)?.toDouble(),
-        cuc: json['cuc'] as int?,
+        cuc: (json['cuc'] as num?)?.toDouble(),
         cup: (json['cup'] as num?)?.toDouble(),
         cve: (json['cve'] as num?)?.toDouble(),
         cvx: (json['cvx'] as num?)?.toDouble(),
@@ -773,7 +773,7 @@ class Usd {
         egp: (json['egp'] as num?)?.toDouble(),
         enj: (json['enj'] as num?)?.toDouble(),
         eos: (json['eos'] as num?)?.toDouble(),
-        ern: json['ern'] as int?,
+        ern: (json['ern'] as num?)?.toDouble(),
         esp: (json['esp'] as num?)?.toDouble(),
         etb: (json['etb'] as num?)?.toDouble(),
         etc: (json['etc'] as num?)?.toDouble(),
@@ -902,7 +902,7 @@ class Usd {
         one: (json['one'] as num?)?.toDouble(),
         op: (json['op'] as num?)?.toDouble(),
         ordi: (json['ordi'] as num?)?.toDouble(),
-        pab: json['pab'] as int?,
+        pab: (json['pab'] as num?)?.toDouble(),
         paxg: (json['paxg'] as num?)?.toDouble(),
         pen: (json['pen'] as num?)?.toDouble(),
         pepe: (json['pepe'] as num?)?.toDouble(),

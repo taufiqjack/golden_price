@@ -8,7 +8,7 @@ const baseURL = 'DOMAIN';
 const baseURLCurr = 'DOMAIN_CURR';
 const baseURLIDX = 'DOMAIN_IDX';
 // const goldPrice = "/prices/hargaemas-com";
-const goldPrice = "/api/asset/gold/pricing?daysLimit=7";
+const goldPrice = "/api/prices/anekalogam";
 const currency = "/npm/@fawazahmed0/currency-api@";
 const usd = "/v1/currencies/usd.json";
 const top7 = "/primary/Home/GetTopValue";

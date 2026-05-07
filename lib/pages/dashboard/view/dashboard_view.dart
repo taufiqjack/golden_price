@@ -16,6 +16,7 @@ import 'package:golden_price/core/extensions/money_extension.dart';
 import 'package:golden_price/core/models/currency_model/currency_model.dart';
 import 'package:golden_price/core/models/gold_model/gold_model.dart';
 import 'package:golden_price/core/models/idx_top7_model/idx_top7_model.dart';
+import 'package:golden_price/core/services/iap_service.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:golden_price/widgets/common_text.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -30,26 +31,27 @@ class DashboardView extends StatefulWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: coreBgColor,
-        title: Row(
-          children: [
-            CommonText(
-              text: 'Dashboard',
-              color: coreTextColor,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-            Spacer(),
-            if (controller.bannerAd != null) ...[
-              SizedBox(
-                height: controller.bannerAd!.size.height.toDouble(),
-                width: controller.bannerAd!.size.width.toDouble(),
-                child: AdWidget(ad: controller.bannerAd!),
-              ),
-            ]
-          ],
+        title: CommonText(
+          text: 'Dashboard',
+          color: coreTextColor,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: false,
         automaticallyImplyLeading: false,
+        bottom: controller.bannerAd != null
+            ? PreferredSize(
+                preferredSize: Size(
+                  controller.bannerAd!.size.width.toDouble(),
+                  controller.bannerAd!.size.height.toDouble(),
+                ),
+                child: SizedBox(
+                  height: controller.bannerAd!.size.height.toDouble(),
+                  width: controller.bannerAd!.size.width.toDouble(),
+                  child: AdWidget(ad: controller.bannerAd!),
+                ),
+              )
+            : null,
       ),
       body: PopScope(
         canPop: false,
@@ -253,8 +255,8 @@ class DashboardView extends StatefulWidget {
                                                                     .center,
                                                             children: [
                                                               ListView.builder(
-                                                                physics:
-                                                                    const NeverScrollableScrollPhysics(),
+                                                                  physics:
+                                                                      const NeverScrollableScrollPhysics(),
                                                                   padding:
                                                                       EdgeInsets
                                                                           .only(),
@@ -303,7 +305,6 @@ class DashboardView extends StatefulWidget {
                                                           success:
                                                               (sahamTop7) =>
                                                                   Column(
-                                                                    
                                                             children: [
                                                               _buildPlaceholderSaham(
                                                                   sahamTop7!),
@@ -346,11 +347,15 @@ class DashboardView extends StatefulWidget {
             Expanded(
               child: _buildWishlistCard(
                 title: 'ANTAM',
-                subtitle: 'Harga Emas',   
-                value: goldPrice?.data?.current?.midPrice?.toDouble().toRupiah() ??
+                subtitle: 'Harga Emas',
+                value: goldPrice
+                        ?.getAntam1gr()
+                        ?.sellPrice
+                        ?.toDouble()
+                        .toRupiah() ??
                     'N/A',
-                updateTime: goldPrice?.data?.current?.updatedAt != null
-                    ? 'Updated: ${goldPrice!.data!.current!.updatedAt!.toIndonesiaDatetime()}'
+                updateTime: goldPrice?.timestamp != null
+                    ? 'Updated: ${goldPrice!.timestamp!.toIndonesiaDatetime()}'
                     : null,
                 percent: '+0.45%', // Placeholder as no historic data for calc
                 isPositive: true,
@@ -368,7 +373,6 @@ class DashboardView extends StatefulWidget {
                 iconData: Icons.attach_money,
               ),
             ),
-            
           ],
         ),
       ],
@@ -426,8 +430,7 @@ class DashboardView extends StatefulWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
             children: [
               CommonText(
                 text: value,
@@ -499,7 +502,6 @@ class DashboardView extends StatefulWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -625,6 +627,38 @@ class DashboardView extends StatefulWidget {
               },
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUpgradeButton(
+      BuildContext context, DashboardController controller) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: controller.showUpgradeDialog,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.amber.shade400, Colors.orange.shade500],
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.workspace_premium, color: Colors.white, size: 18),
+              SizedBox(width: 6),
+              CommonText(
+                text: 'Upgrade',
+                color: Colors.white,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+            ],
+          ),
         ),
       ),
     );
