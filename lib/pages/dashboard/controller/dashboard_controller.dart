@@ -69,7 +69,8 @@ class DashboardController extends State<DashboardView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           title: Row(
             children: [
               Icon(Icons.workspace_premium, color: Colors.amber, size: 28),
@@ -94,8 +95,10 @@ class DashboardController extends State<DashboardView> {
               ),
               SizedBox(height: 16),
               _buildFeatureItem(Icons.ads_click, 'Remove all ads'),
-              _buildFeatureItem(Icons.show_chart, 'Advanced charts and analytics'),
-              _buildFeatureItem(Icons.notifications_active, 'Real-time price alerts'),
+              _buildFeatureItem(
+                  Icons.show_chart, 'Advanced charts and analytics'),
+              _buildFeatureItem(
+                  Icons.notifications_active, 'Real-time price alerts'),
               _buildFeatureItem(Icons.star, 'Priority customer support'),
               SizedBox(height: 16),
               if (product != null)
@@ -137,9 +140,11 @@ class DashboardController extends State<DashboardView> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.amber,
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
               ),
-              child: CommonText(text: 'Upgrade Now', fontWeight: FontWeight.w600),
+              child:
+                  CommonText(text: 'Upgrade Now', fontWeight: FontWeight.w600),
             ),
           ],
         );

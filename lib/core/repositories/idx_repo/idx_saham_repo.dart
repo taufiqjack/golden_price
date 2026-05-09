@@ -19,6 +19,8 @@ class IdxSahamRepo {
         List<IdxTop7Model> listData =
             data.map((map) => IdxTop7Model.fromJson(map)).toList();
         return listData;
+      } else if (response.statusCode == 403) {
+        return null;
       } else {
         if (context.mounted) {
           toast(context, log.getString(MESSAGE).toString());

@@ -52,6 +52,7 @@ extension SahamTop7StatePatterns on SahamTop7State {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Error value)? error,
+    TResult Function(_MarketClosed value)? marketClosed,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
@@ -61,6 +62,8 @@ extension SahamTop7StatePatterns on SahamTop7State {
         return initial(_that);
       case _Error() when error != null:
         return error(_that);
+      case _MarketClosed() when marketClosed != null:
+        return marketClosed(_that);
       case _Success() when success != null:
         return success(_that);
       case _:
@@ -85,6 +88,7 @@ extension SahamTop7StatePatterns on SahamTop7State {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Error value) error,
+    required TResult Function(_MarketClosed value) marketClosed,
     required TResult Function(_Success value) success,
   }) {
     final _that = this;
@@ -93,6 +97,8 @@ extension SahamTop7StatePatterns on SahamTop7State {
         return initial(_that);
       case _Error():
         return error(_that);
+      case _MarketClosed():
+        return marketClosed(_that);
       case _Success():
         return success(_that);
       case _:
@@ -116,6 +122,7 @@ extension SahamTop7StatePatterns on SahamTop7State {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Error value)? error,
+    TResult? Function(_MarketClosed value)? marketClosed,
     TResult? Function(_Success value)? success,
   }) {
     final _that = this;
@@ -124,6 +131,8 @@ extension SahamTop7StatePatterns on SahamTop7State {
         return initial(_that);
       case _Error() when error != null:
         return error(_that);
+      case _MarketClosed() when marketClosed != null:
+        return marketClosed(_that);
       case _Success() when success != null:
         return success(_that);
       case _:
@@ -147,6 +156,7 @@ extension SahamTop7StatePatterns on SahamTop7State {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function()? marketClosed,
     TResult Function(List<IdxTop7Model>? sahamTop7)? success,
     required TResult orElse(),
   }) {
@@ -156,6 +166,8 @@ extension SahamTop7StatePatterns on SahamTop7State {
         return initial();
       case _Error() when error != null:
         return error(_that.message);
+      case _MarketClosed() when marketClosed != null:
+        return marketClosed();
       case _Success() when success != null:
         return success(_that.sahamTop7);
       case _:
@@ -180,6 +192,7 @@ extension SahamTop7StatePatterns on SahamTop7State {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function() marketClosed,
     required TResult Function(List<IdxTop7Model>? sahamTop7) success,
   }) {
     final _that = this;
@@ -188,6 +201,8 @@ extension SahamTop7StatePatterns on SahamTop7State {
         return initial();
       case _Error():
         return error(_that.message);
+      case _MarketClosed():
+        return marketClosed();
       case _Success():
         return success(_that.sahamTop7);
       case _:
@@ -211,6 +226,7 @@ extension SahamTop7StatePatterns on SahamTop7State {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function()? marketClosed,
     TResult? Function(List<IdxTop7Model>? sahamTop7)? success,
   }) {
     final _that = this;
@@ -219,6 +235,8 @@ extension SahamTop7StatePatterns on SahamTop7State {
         return initial();
       case _Error() when error != null:
         return error(_that.message);
+      case _MarketClosed() when marketClosed != null:
+        return marketClosed();
       case _Success() when success != null:
         return success(_that.sahamTop7);
       case _:
@@ -306,6 +324,26 @@ class __$ErrorCopyWithImpl<$Res> implements _$ErrorCopyWith<$Res> {
           : message // ignore: cast_nullable_to_non_nullable
               as String,
     ));
+  }
+}
+
+/// @nodoc
+
+class _MarketClosed implements SahamTop7State {
+  const _MarketClosed();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _MarketClosed);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'SahamTop7State.marketClosed()';
   }
 }
 

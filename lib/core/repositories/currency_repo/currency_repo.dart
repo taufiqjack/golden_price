@@ -17,6 +17,9 @@ class CurrencyRepo {
 
       log.setInt(STATUSCODE, response.statusCode!);
       if (response.statusCode == 200) {
+        if (map.toString().contains("Couldn't find the requested release version")) {
+          throw Exception('data_not_available');
+        }
         return CurrencyModel.fromJson(map);
       } else {
         if (context.mounted) {

@@ -21,6 +21,15 @@ class CurrencyCubit extends Cubit<CurrencyState> {
         print(e);
       }
       emit(CurrencyState.error(e.toString()));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      if (e.toString().contains('data_not_available')) {
+        emit(const CurrencyState.error('Data belum tersedia, silakan coba beberapa menit lagi'));
+      } else {
+        emit(CurrencyState.error(e.toString()));
+      }
     }
   }
 }

@@ -15,8 +15,17 @@ class SahamTop7Cubit extends Cubit<SahamTop7State> {
     try {
       emit(const SahamTop7State.initial());
       final saham = await _repo.getSahamTop7(context);
-      emit(SahamTop7State.success(saham));
+      if (saham == null) {
+        emit(const SahamTop7State.marketClosed());
+      } else {
+        emit(SahamTop7State.success(saham));
+      }
     } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      emit(SahamTop7State.error(e.toString()));
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }

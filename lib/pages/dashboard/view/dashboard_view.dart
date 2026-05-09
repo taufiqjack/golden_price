@@ -302,6 +302,8 @@ class DashboardView extends StatefulWidget {
                                                             child: CommonText(
                                                                 text: message),
                                                           ),
+                                                          marketClosed: () =>
+                                                              _buildMarketClosed(),
                                                           success:
                                                               (sahamTop7) =>
                                                                   Column(
@@ -488,6 +490,41 @@ class DashboardView extends StatefulWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMarketClosed() {
+    return Card(
+      color: coreSecondaryColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            Icon(
+              Icons.storefront,
+              size: 48,
+              color: coreGrayColor,
+            ),
+            const SizedBox(height: 12),
+            CommonText(
+              text: 'Pasar Sedang Tutup',
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: coreTextColor,
+            ),
+            const SizedBox(height: 4),
+            CommonText(
+              text: 'Bursa efek saat ini tidak aktif',
+              fontSize: 12,
+              color: coreGrayColor,
+            ),
+          ],
+        ),
       ),
     );
   }
