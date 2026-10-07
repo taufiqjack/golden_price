@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_price/core/constants/cons.dart';
+import 'package:golden_price/core/helpers/cloudflare_fetcher.dart';
 import 'package:golden_price/core/rest/rest_config.dart';
 
 class RestContract {
@@ -30,8 +32,28 @@ class RestContract {
   }
 
   Future<Response> getSahamTop7() async {
-    return await _dio3.get(
-      '$top7?resultCount=7',
+    final path = '$top7?resultCount=7';
+    final response = await _dio3.get(
+      path,
+      options: Options(headers: CloudflareSession.headers()),
+    );
+    if (response.statusCode != 403) return response;
+
+    // Cloudflare challenge (no or expired clearance cookie): let the user
+    // solve it in a WebView, which also yields the JSON for this call.
+    final dynamic data;
+    try {
+      data = await CloudflareSession.solve('${_dio3.options.baseUrl}$path');
+    } catch (e) {
+      debugPrint('Cloudflare challenge failed: $e');
+      return response;
+    }
+    // User closed the page: keep the 403 so callers treat it as "no data".
+    if (data == null) return response;
+    return Response(
+      requestOptions: RequestOptions(path: path),
+      statusCode: 200,
+      data: data,
     );
   }
 }

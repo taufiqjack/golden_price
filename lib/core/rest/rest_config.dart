@@ -39,6 +39,9 @@ class RestConfig2 {
 class RestConfigIDX {
   static BaseOptions options() => BaseOptions(
         baseUrl: '${dotenv.env[baseURLIDX]}',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+        },
         sendTimeout: const Duration(hours: 24),
         connectTimeout: const Duration(milliseconds: 100000),
         receiveTimeout: const Duration(milliseconds: 100000),
