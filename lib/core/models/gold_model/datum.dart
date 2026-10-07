@@ -27,10 +27,10 @@ class Datum {
         source: json['source'] as String?,
         material: json['material'] as String?,
         materialType: json['materialType'] as String?,
-        weight: json['weight'] as int?,
+        weight: (json['weight'] as num?)?.toInt(),
         weightUnit: json['weightUnit'] as String?,
-        sellPrice: json['sellPrice'] as int?,
-        buybackPrice: json['buybackPrice'] as int?,
+        sellPrice: (json['sellPrice'] as num?)?.toInt(),
+        buybackPrice: (json['buybackPrice'] as num?)?.toInt(),
         currency: json['currency'] as String?,
         recordedDate: json['recordedDate'] == null
             ? null
