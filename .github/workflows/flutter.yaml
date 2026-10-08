@@ -6,6 +6,10 @@ on:
   push:
     tags:
       - "v*.*.*" # on every version tag will build a new android artifact.
+
+  permissions:
+      contents: write
+
 jobs:
   build:
     name: Build APK
