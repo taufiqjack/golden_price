@@ -7,8 +7,8 @@ on:
     tags:
       - "v*.*.*" # on every version tag will build a new android artifact.
 
-  permissions:
-      contents: write
+permissions:
+  contents: write
 
 jobs:
   build:
