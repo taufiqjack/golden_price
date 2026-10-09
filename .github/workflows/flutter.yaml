@@ -78,7 +78,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: APPBUNDLE
-          path: build/app/outputs/bundle/release/app-release.aab
+          path: build/app/outputs/bundle/release/*.aab
+          if-no-files-found: error
 
   release_internal:
     #2. Release Artifact ke Internal track Play Console
@@ -86,11 +87,13 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
       - name: Get APPBUNDLE from Artifacts
         uses: actions/download-artifact@v4
         with:
           name: APPBUNDLE
+          path: appbundle
+      - name: List downloaded files
+        run: ls -la appbundle
       - name: Release APPBUNDLE to internal track
         uses: r0adkll/upload-google-play@v1
         with:
@@ -98,7 +101,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_JSONKEY }}
           # Ini didapat dari nama package yang sudah diupload melalui internal track
           packageName: com.rencanggunung.golden_price
-          releaseFiles: app-release.aab
+          releaseFiles: appbundle/*.aab
           track: internal
           status: draft
           isDraftRelease: false
