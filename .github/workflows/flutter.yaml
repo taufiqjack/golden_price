@@ -94,15 +94,17 @@ jobs:
           path: appbundle
       - name: List downloaded files
         run: ls -la appbundle
+      # Secret GOOGLE_SERVICE_JSONKEY disimpan dalam bentuk base64, jadi decode dulu ke file
+      - name: Decode service account JSON
+        run: echo "${{ secrets.GOOGLE_SERVICE_JSONKEY }}" | base64 --decode > service_account.json
       - name: Release APPBUNDLE to internal track
         uses: r0adkll/upload-google-play@v1
         with:
           # Ini didapat dari service account yang sudah dibuat
-          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_JSONKEY }}
+          serviceAccountJson: service_account.json
           # Ini didapat dari nama package yang sudah diupload melalui internal track
           packageName: com.rencanggunung.golden_price
           releaseFiles: appbundle/*.aab
-          track: internal
+          tracks: internal
           status: draft
-          isDraftRelease: false
           changesNotSentForReview: true
