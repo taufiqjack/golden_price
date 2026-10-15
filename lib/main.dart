@@ -12,6 +12,7 @@ import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.
 import 'package:golden_price/core/constants/color_customs.dart';
 import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/depedencies/injection.dart';
+import 'package:golden_price/core/helpers/theme_mode_notifier.dart';
 import 'package:golden_price/core/routes/app_route.dart';
 import 'package:golden_price/firebase_options.dart';
 import 'package:golden_price/pages/dashboard/view/dashboard_view.dart';
@@ -49,18 +50,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var alice = locator<Alice>();
     alice.setNavigatorKey(Go.navigatorKey);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
-    ));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.black, // navigation bar color
-      statusBarColor: Colors.transparent,
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarIconBrightness: Brightness.light, // status bar color
-    ));
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -73,35 +62,51 @@ class MyApp extends StatelessWidget {
           create: (context) => locator<SahamTop7Cubit>(),
         ),
       ],
-      child: MaterialApp(
-        builder: (context, child) {
-          FToastBuilder();
-          return ResponsiveBreakpoints.builder(child: child!, breakpoints: [
-            const Breakpoint(start: 0, end: 420, name: MOBILE),
-            const Breakpoint(start: 421, end: 820, name: TABLET),
-            const Breakpoint(start: 821, end: 1000, name: DESKTOP),
-          ]);
-        },
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: corePrimaryColor),
-          useMaterial3: true,
-          extensions: const [CorePalette.light],
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: corePrimaryColor,
-            brightness: Brightness.dark,
+      child: ValueListenableBuilder<ThemeMode>(
+        valueListenable: ThemeModeNotifier.instance,
+        builder: (context, themeMode, _) => MaterialApp(
+          builder: (context, child) {
+            FToastBuilder();
+            final palette = CorePalette.of(context);
+            final iconBrightness =
+                palette.isDark ? Brightness.light : Brightness.dark;
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: iconBrightness,
+                statusBarBrightness:
+                    palette.isDark ? Brightness.dark : Brightness.light,
+                systemNavigationBarColor: palette.bg,
+                systemNavigationBarIconBrightness: iconBrightness,
+              ),
+              child: ResponsiveBreakpoints.builder(child: child!, breakpoints: [
+                const Breakpoint(start: 0, end: 420, name: MOBILE),
+                const Breakpoint(start: 421, end: 820, name: TABLET),
+                const Breakpoint(start: 821, end: 1000, name: DESKTOP),
+              ]),
+            );
+          },
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: corePrimaryColor),
+            useMaterial3: true,
+            extensions: const [CorePalette.light],
           ),
-          useMaterial3: true,
-          extensions: const [CorePalette.dark],
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: corePrimaryColor,
+              brightness: Brightness.dark,
+            ),
+            useMaterial3: true,
+            extensions: const [CorePalette.dark],
+          ),
+          themeMode: themeMode,
+          home: DashboardView(),
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          navigatorKey: alice.getNavigatorKey(),
         ),
-        themeMode: ThemeMode.system,
-        home: DashboardView(),
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        navigatorKey: alice.getNavigatorKey(),
       ),
     );
   }

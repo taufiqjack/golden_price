@@ -22,5 +22,6 @@ const String TENANT_ID = 'tenant';
 const String MESSAGE = 'message';
 const String STATUSCODE = 'status_code';
 const String ISCHECK = 'is_check';
+const String THEME_MODE = 'theme_mode';
 
 late SharedPreferences log;
