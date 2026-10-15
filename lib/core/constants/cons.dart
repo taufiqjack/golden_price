@@ -13,6 +13,9 @@ const currency = "/npm/@fawazahmed0/currency-api@";
 const usd = "/v1/currencies/usd.json";
 const top7 = "/primary/Home/GetTopValue";
 
+String stockLogoUrl(String code) =>
+    'https://assets.stockbit.com/logos/companies/${code.toUpperCase()}.png';
+
 const String IS_LOGIN = 'is_login';
 const String SPLASH = 'is_splash';
 const String TENANT_ID = 'tenant';

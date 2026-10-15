@@ -2,7 +2,7 @@ class Datum {
   String? source;
   String? material;
   String? materialType;
-  int? weight;
+  dynamic weight;
   String? weightUnit;
   int? sellPrice;
   int? buybackPrice;
@@ -27,7 +27,7 @@ class Datum {
         source: json['source'] as String?,
         material: json['material'] as String?,
         materialType: json['materialType'] as String?,
-        weight: (json['weight'] as num?)?.toInt(),
+        weight: json['weight'],
         weightUnit: json['weightUnit'] as String?,
         sellPrice: (json['sellPrice'] as num?)?.toInt(),
         buybackPrice: (json['buybackPrice'] as num?)?.toInt(),

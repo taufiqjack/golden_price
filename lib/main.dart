@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.dart';
+import 'package:golden_price/core/constants/color_customs.dart';
 import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/depedencies/injection.dart';
 import 'package:golden_price/core/routes/app_route.dart';
@@ -82,9 +83,19 @@ class MyApp extends StatelessWidget {
           ]);
         },
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: corePrimaryColor),
           useMaterial3: true,
+          extensions: const [CorePalette.light],
         ),
+        darkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: corePrimaryColor,
+            brightness: Brightness.dark,
+          ),
+          useMaterial3: true,
+          extensions: const [CorePalette.dark],
+        ),
+        themeMode: ThemeMode.system,
         home: DashboardView(),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,

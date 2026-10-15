@@ -104,9 +104,94 @@ const Color spectrumRed = Color(0xFFE34850); // Error/Negative
 const Color spectrumOrange = Color(0xFFF1802C); // Warning
 
 // Core Dashboard Colors
-const Color coreBgColor = Color(0xFF212332);
-const Color coreSecondaryColor = Color(0xFF2A2D3E);
-const Color corePrimaryColor = Color(0xFF2697FF);
-const Color coreTextColor = Colors.white;
-const Color coreGrayColor = Colors.white54;
+const Color coreBgColor = Color(0xFFF5F6FA);
+const Color coreSecondaryColor = Color(0xFFFFFFFF);
+const Color corePrimaryColor = Color(0xFF3461E4);
+const Color coreTextColor = Color(0xFF14161F);
+const Color coreGrayColor = Color(0xFF8A8FA3);
+const Color coreBorderColor = Color(0xFFE8EAF0);
+const Color coreSkeletonColor = Color(0xFFE3E6EE);
+const Color coreGreenColor = Color(0xFF1DB66B);
+const Color coreRedColor = Color(0xFFEF3E5C);
 
+/// Dashboard palette that follows the app brightness (light / dark).
+class CorePalette extends ThemeExtension<CorePalette> {
+  final Color bg;
+  final Color card;
+  final Color primary;
+  final Color header;
+  final Color text;
+  final Color gray;
+  final Color border;
+  final Color skeleton;
+  final Color green;
+  final Color red;
+  final Color shadow;
+
+  const CorePalette({
+    required this.bg,
+    required this.card,
+    required this.primary,
+    required this.header,
+    required this.text,
+    required this.gray,
+    required this.border,
+    required this.skeleton,
+    required this.green,
+    required this.red,
+    required this.shadow,
+  });
+
+  static const light = CorePalette(
+    bg: coreBgColor,
+    card: coreSecondaryColor,
+    primary: corePrimaryColor,
+    header: corePrimaryColor,
+    text: coreTextColor,
+    gray: coreGrayColor,
+    border: coreBorderColor,
+    skeleton: coreSkeletonColor,
+    green: coreGreenColor,
+    red: coreRedColor,
+    shadow: Color(0xFF1B2A5C),
+  );
+
+  static const dark = CorePalette(
+    bg: Color(0xFF0F1117),
+    card: Color(0xFF1A1D27),
+    primary: Color(0xFF6B8CFF),
+    header: Color(0xFF1E2A5A),
+    text: Color(0xFFF2F3F7),
+    gray: Color(0xFF8E94A8),
+    border: Color(0xFF2A2E3B),
+    skeleton: Color(0xFF262A36),
+    green: Color(0xFF2FD283),
+    red: Color(0xFFFF5C77),
+    shadow: Color(0xFF000000),
+  );
+
+  static CorePalette of(BuildContext context) =>
+      Theme.of(context).extension<CorePalette>() ??
+      (Theme.of(context).brightness == Brightness.dark ? dark : light);
+
+  @override
+  CorePalette copyWith() => this;
+
+  @override
+  CorePalette lerp(CorePalette? other, double t) {
+    if (other == null) return this;
+    return CorePalette(
+      bg: Color.lerp(bg, other.bg, t)!,
+      card: Color.lerp(card, other.card, t)!,
+      primary: Color.lerp(primary, other.primary, t)!,
+      header: Color.lerp(header, other.header, t)!,
+      text: Color.lerp(text, other.text, t)!,
+      gray: Color.lerp(gray, other.gray, t)!,
+      border: Color.lerp(border, other.border, t)!,
+      skeleton: Color.lerp(skeleton, other.skeleton, t)!,
+      green: Color.lerp(green, other.green, t)!,
+      red: Color.lerp(red, other.red, t)!,
+      shadow: Color.lerp(shadow, other.shadow, t)!,
+    );
+  }
+}
