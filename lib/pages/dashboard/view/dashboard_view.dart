@@ -17,6 +17,7 @@ import 'package:golden_price/core/constants/color_customs.dart';
 import 'package:golden_price/core/constants/cons.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/extensions/money_extension.dart';
+import 'package:golden_price/core/helpers/theme_mode_notifier.dart';
 import 'package:golden_price/core/models/gold_model/datum.dart';
 import 'package:golden_price/core/models/idx_top7_model/idx_top7_model.dart';
 import 'package:golden_price/core/models/ihsg_model/ihsg_model.dart';
@@ -33,7 +34,15 @@ class DashboardView extends StatefulWidget {
   Widget build(BuildContext context, DashboardController controller) {
     final c = CorePalette.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
+      // Header is always a dark-blue band, so status bar icons stay light.
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: c.bg,
+        systemNavigationBarIconBrightness:
+            c.isDark ? Brightness.light : Brightness.dark,
+      ),
       child: Scaffold(
         backgroundColor: c.bg,
         bottomNavigationBar: controller.bannerAd != null
@@ -95,17 +104,29 @@ class DashboardView extends StatefulWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonText(
-                text: _greeting(),
-                color: Colors.white.withValues(alpha: 0.8),
-                fontSize: 14,
-              ),
-              const SizedBox(height: 4),
-              const CommonText(
-                text: 'Emas Saham Hari Ini',
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonText(
+                          text: _greeting(),
+                          color: Colors.white.withValues(alpha: 0.8),
+                          fontSize: 14,
+                        ),
+                        const SizedBox(height: 4),
+                        const CommonText(
+                          text: 'Emas Saham Hari Ini',
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ],
+                    ),
+                  ),
+                  _buildThemeToggle(),
+                ],
               ),
               const SizedBox(height: 20),
               _buildSummaryCard(c),
@@ -113,6 +134,21 @@ class DashboardView extends StatefulWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildThemeToggle() {
+    final notifier = ThemeModeNotifier.instance;
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: notifier,
+      builder: (_, __, ___) => IconButton(
+        onPressed: notifier.toggle,
+        tooltip: 'Ganti tema',
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.white.withValues(alpha: 0.15),
+        ),
+        icon: Icon(notifier.icon, color: Colors.white, size: 22),
+      ),
     );
   }
 
@@ -733,11 +769,11 @@ class DashboardView extends StatefulWidget {
     return BoxDecoration(
       color: c.card,
       borderRadius: BorderRadius.circular(16),
-      border: _isDark(c) ? Border.all(color: c.border) : null,
+      border: c.isDark ? Border.all(color: c.border) : null,
       boxShadow: [
         BoxShadow(
           color: c.shadow.withValues(
-            alpha: (withShadow ? 0.10 : 0.04) * (_isDark(c) ? 3 : 1),
+            alpha: (withShadow ? 0.10 : 0.04) * (c.isDark ? 3 : 1),
           ),
           blurRadius: withShadow ? 24 : 12,
           offset: const Offset(0, 6),
@@ -780,8 +816,6 @@ class DashboardView extends StatefulWidget {
     );
   }
 
-  bool _isDark(CorePalette c) => identical(c, CorePalette.dark);
-
   /// Company logo loaded from the network, falling back to initials.
   Widget _stockLogo(CorePalette c, String code) {
     return ClipOval(
@@ -803,7 +837,7 @@ class DashboardView extends StatefulWidget {
       {required String image, required double radius}) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: _isDark(c) ? Colors.white : c.bg,
+      backgroundColor: c.isDark ? Colors.white : c.bg,
       child: Padding(
         padding: EdgeInsets.all(radius * 0.35),
         child: Image.asset(image),

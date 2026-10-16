@@ -15,13 +15,14 @@ class NoConnectionView extends StatefulWidget {
 class _NoConnectionViewState extends State<NoConnectionView> {
   @override
   Widget build(BuildContext context) {
+    final c = CorePalette.of(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: white,
+        backgroundColor: c.bg,
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: white,
+      backgroundColor: c.bg,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,6 +38,7 @@ class _NoConnectionViewState extends State<NoConnectionView> {
             text: 'Oops! Tidak ada Koneksi Internet!',
             fontWeight: FontWeight.w700,
             fontSize: 20,
+            color: c.text,
           ).bottomPadded24(),
           Container(
             height: 40,

@@ -5,6 +5,7 @@ import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/ihsg_cubit/ihsg_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.dart';
+import 'package:golden_price/core/constants/color_customs.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/helpers/connection_internet.dart';
 import 'package:golden_price/core/routes/app_route.dart';
@@ -93,7 +94,7 @@ class DashboardController extends State<DashboardView> {
               CommonText(
                 text: 'Get unlimited access to premium features:',
                 fontSize: 14,
-                color: Colors.grey.shade700,
+                color: CorePalette.of(context).gray,
               ),
               SizedBox(height: 16),
               _buildFeatureItem(Icons.ads_click, 'Remove all ads'),
@@ -117,7 +118,7 @@ class DashboardController extends State<DashboardView> {
                   child: CommonText(
                     text: 'Loading...',
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: CorePalette.of(context).gray,
                   ),
                 ),
             ],
@@ -125,7 +126,8 @@ class DashboardController extends State<DashboardView> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: CommonText(text: 'Cancel', color: Colors.grey),
+              child: CommonText(
+                  text: 'Cancel', color: CorePalette.of(context).gray),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -145,8 +147,10 @@ class DashboardController extends State<DashboardView> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
               ),
-              child:
-                  CommonText(text: 'Upgrade Now', fontWeight: FontWeight.w600),
+              child: CommonText(
+                  text: 'Upgrade Now',
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600),
             ),
           ],
         );

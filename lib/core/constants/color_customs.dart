@@ -127,6 +127,7 @@ class CorePalette extends ThemeExtension<CorePalette> {
   final Color green;
   final Color red;
   final Color shadow;
+  final bool isDark;
 
   const CorePalette({
     required this.bg,
@@ -140,6 +141,7 @@ class CorePalette extends ThemeExtension<CorePalette> {
     required this.green,
     required this.red,
     required this.shadow,
+    required this.isDark,
   });
 
   static const light = CorePalette(
@@ -154,6 +156,7 @@ class CorePalette extends ThemeExtension<CorePalette> {
     green: coreGreenColor,
     red: coreRedColor,
     shadow: Color(0xFF1B2A5C),
+    isDark: false,
   );
 
   static const dark = CorePalette(
@@ -168,6 +171,7 @@ class CorePalette extends ThemeExtension<CorePalette> {
     green: Color(0xFF2FD283),
     red: Color(0xFFFF5C77),
     shadow: Color(0xFF000000),
+    isDark: true,
   );
 
   static CorePalette of(BuildContext context) =>
@@ -192,6 +196,7 @@ class CorePalette extends ThemeExtension<CorePalette> {
       green: Color.lerp(green, other.green, t)!,
       red: Color.lerp(red, other.red, t)!,
       shadow: Color.lerp(shadow, other.shadow, t)!,
+      isDark: t < 0.5 ? isDark : other.isDark,
     );
   }
 }

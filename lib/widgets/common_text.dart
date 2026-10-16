@@ -38,7 +38,10 @@ class CommonText extends StatelessWidget {
       softWrap: softWrap,
       style: TextStyle(
           decoration: textDecoration,
-          color: color ?? blackNavy,
+          color: color ??
+              (CorePalette.of(context).isDark
+                  ? CorePalette.of(context).text
+                  : blackNavy),
           fontSize: fontSize,
           fontFamily: fontFamily,
           letterSpacing: letterSpace,
