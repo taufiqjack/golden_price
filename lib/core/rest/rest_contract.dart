@@ -10,9 +10,11 @@ class RestContract {
   late RestConfig _restConfig;
   late RestConfig2 _restConfig2;
   late RestConfigIDX _restConfigIDX;
+  late RestConfigYahoo _restConfigYahoo;
   late Dio _dio;
   late Dio _dio2;
   late Dio _dio3;
+  late Dio _dio4;
 
   RestContract() {
     _restConfig = _getIt.get<RestConfig>();
@@ -21,6 +23,8 @@ class RestContract {
     _dio2 = _restConfig2.dio();
     _restConfigIDX = _getIt.get<RestConfigIDX>();
     _dio3 = _restConfigIDX.dio();
+    _restConfigYahoo = _getIt.get<RestConfigYahoo>();
+    _dio4 = _restConfigYahoo.dio();
   }
 
   Future<Response> goldenPrice() async {
@@ -29,6 +33,13 @@ class RestContract {
 
   Future<Response> getCurrUSID(date) async {
     return await _dio2.get('$currency$date$usd');
+  }
+
+  Future<Response> getIhsgChart(String range, String interval) async {
+    return await _dio4.get(
+      ihsgChart,
+      queryParameters: {'range': range, 'interval': interval},
+    );
   }
 
   Future<Response> getSahamTop7() async {

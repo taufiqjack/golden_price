@@ -12,6 +12,8 @@ const goldPrice = "/api/prices/anekalogam";
 const currency = "/npm/@fawazahmed0/currency-api@";
 const usd = "/v1/currencies/usd.json";
 const top7 = "/primary/Home/GetTopValue";
+const yahooBaseUrl = "https://query1.finance.yahoo.com";
+const ihsgChart = "/v8/finance/chart/%5EJKSE";
 
 String stockLogoUrl(String code) =>
     'https://assets.stockbit.com/logos/companies/${code.toUpperCase()}.png';

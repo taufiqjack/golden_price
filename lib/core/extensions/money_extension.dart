@@ -9,6 +9,14 @@ extension StringExtension on double {
     ).format(this);
   }
 
+  /// Index points, e.g. 7.123,45.
+  String toIndex() {
+    return NumberFormat.decimalPatternDigits(
+      locale: 'id_ID',
+      decimalDigits: 2,
+    ).format(this);
+  }
+
   String toDollar() {
     return NumberFormat.currency(
       locale: 'en_US',

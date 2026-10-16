@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/ihsg_cubit/ihsg_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.dart';
 import 'package:golden_price/core/rest/network_interceptor.dart';
 import 'package:golden_price/core/rest/rest_config.dart';
@@ -16,9 +17,11 @@ class Injection {
   late RestConfig _restApi;
   late RestConfig2 _restApi2;
   late RestConfigIDX _restApiIDX;
+  late RestConfigYahoo _restApiYahoo;
   late Dio _dio;
   late Dio _dio2;
   late Dio _dio3;
+  late Dio _dio4;
   Alice alice = Alice(
     configuration: AliceConfiguration(
       showNotification: true,
@@ -39,6 +42,7 @@ class Injection {
     _dio = Dio(RestConfig.options());
     _dio2 = Dio(RestConfig2.options());
     _dio3 = Dio(RestConfigIDX.options());
+    _dio4 = Dio(RestConfigYahoo.options());
     alice.addAdapter(aliceDioAdapter);
     List<Interceptor> interceptors = [];
     if (kDebugMode) {
@@ -63,22 +67,27 @@ class Injection {
           responseBody: true,
           error: true,
         ));
+      _dio4.interceptors.add(aliceDioAdapter);
     }
 
     interceptors.add(NetworkInterceptor());
     _dio.interceptors.addAll(interceptors);
     _dio2.interceptors.addAll(interceptors);
     _dio3.interceptors.addAll(interceptors);
+    _dio4.interceptors.addAll(interceptors);
 
     _restApi = RestConfig(_dio);
     _restApi2 = RestConfig2(_dio2);
     _restApiIDX = RestConfigIDX(_dio3);
+    _restApiYahoo = RestConfigYahoo(_dio4);
     locator.registerSingleton<RestConfig>(_restApi);
     locator.registerSingleton<RestConfig2>(_restApi2);
     locator.registerSingleton<RestConfigIDX>(_restApiIDX);
+    locator.registerSingleton<RestConfigYahoo>(_restApiYahoo);
     locator.registerSingleton<RestContract>(RestContract());
     locator.registerSingleton<GoldPriceCubit>(GoldPriceCubit());
     locator.registerSingleton<CurrencyCubit>(CurrencyCubit());
     locator.registerSingleton<SahamTop7Cubit>(SahamTop7Cubit());
+    locator.registerSingleton<IhsgCubit>(IhsgCubit());
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:golden_price/core/ads/native_ads.dart';
 import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/ihsg_cubit/ihsg_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.dart';
 import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/helpers/connection_internet.dart';
@@ -48,6 +49,7 @@ class DashboardController extends State<DashboardView> {
   CurrencyCubit currencyCubit = CurrencyCubit();
 
   refresh() async {
+    context.read<IhsgCubit>().getIhsg();
     sahamTop7Cubit = context.read<SahamTop7Cubit>()..getSahamTop7(context);
     goldPricesModel = context.read<GoldPriceCubit>()..getGoldPrice(context);
     currencyCubit = context.read<CurrencyCubit>()

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,8 @@ import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_cubit.dart
 import 'package:golden_price/core/bloc/cubits/currency_cubit/currency_state.dart';
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/golden_cubit/gold_price_state.dart';
+import 'package:golden_price/core/bloc/cubits/ihsg_cubit/ihsg_cubit.dart';
+import 'package:golden_price/core/bloc/cubits/ihsg_cubit/ihsg_state.dart';
 import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_cubit.dart';
 import 'package:golden_price/core/bloc/cubits/saham_top7_cubit/saham_top7_state.dart';
 import 'package:golden_price/core/components/asset_path.dart';
@@ -15,6 +19,7 @@ import 'package:golden_price/core/extensions/date_extension.dart';
 import 'package:golden_price/core/extensions/money_extension.dart';
 import 'package:golden_price/core/models/gold_model/datum.dart';
 import 'package:golden_price/core/models/idx_top7_model/idx_top7_model.dart';
+import 'package:golden_price/core/models/ihsg_model/ihsg_model.dart';
 import 'package:golden_price/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:golden_price/widgets/common_text.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -52,6 +57,8 @@ class DashboardView extends StatefulWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(c, context),
+                  const SizedBox(height: 24),
+                  _buildIhsgChart(c),
                   const SizedBox(height: 24),
                   _buildSectionTitle(c, 'Saham Teratas', trailing: 'IDX'),
                   const SizedBox(height: 12),
@@ -259,6 +266,192 @@ class DashboardView extends StatefulWidget {
           ),
         ],
       ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // IHSG chart with selectable range
+  // ---------------------------------------------------------------------------
+
+  Widget _buildIhsgChart(CorePalette c) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: _gutter),
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(c),
+      child: BlocBuilder<IhsgCubit, IhsgState>(
+        builder: (context, state) {
+          final data = state.data;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  _iconAvatar(c, Icons.show_chart, radius: 18),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonText(
+                          text: 'IHSG',
+                          color: c.text,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        CommonText(
+                          text: 'IDX Composite',
+                          color: c.gray,
+                          fontSize: 11,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (data != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        CommonText(
+                          text: data.price.toIndex(),
+                          color: c.text,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        _changeLabel(c, data.percent),
+                      ],
+                    ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 160,
+                child: _buildIhsgChartBody(c, state),
+              ),
+              const SizedBox(height: 12),
+              _buildRangeSelector(c, context, state.range),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildIhsgChartBody(CorePalette c, IhsgState state) {
+    final data = state.data;
+    if (state.error != null) {
+      return Center(child: _buildErrorText(c, state.error!));
+    }
+    if (data == null) return _skeleton(c, height: 160);
+    if (data.points.length < 2) {
+      return Center(
+        child: CommonText(
+          text: 'Data tidak tersedia',
+          color: c.gray,
+          fontSize: 13,
+        ),
+      );
+    }
+
+    final color = data.change >= 0 ? c.green : c.red;
+    final spots = [
+      for (var i = 0; i < data.points.length; i++)
+        FlSpot(i.toDouble(), data.points[i].close),
+    ];
+    final timeFormat = switch (state.range) {
+      IhsgRange.day => DateFormat('HH:mm'),
+      IhsgRange.week => DateFormat('dd MMM HH:mm', 'id_ID'),
+      _ => DateFormat('dd MMM yyyy', 'id_ID'),
+    };
+
+    return AnimatedOpacity(
+      opacity: state.loading ? 0.4 : 1,
+      duration: const Duration(milliseconds: 200),
+      child: LineChart(
+        LineChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: const FlTitlesData(show: false),
+          borderData: FlBorderData(show: false),
+          lineTouchData: LineTouchData(
+            touchTooltipData: LineTouchTooltipData(
+              getTooltipColor: (_) => c.text,
+              fitInsideHorizontally: true,
+              fitInsideVertically: true,
+              getTooltipItems: (touched) => touched.map((spot) {
+                final point = data.points[spot.x.toInt()];
+                return LineTooltipItem(
+                  '${point.close.toIndex()}\n',
+                  TextStyle(
+                    color: c.card,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: timeFormat.format(point.time),
+                      style: TextStyle(color: c.card, fontSize: 10),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+          lineBarsData: [
+            LineChartBarData(
+              spots: spots,
+              isCurved: true,
+              preventCurveOverShooting: true,
+              color: color,
+              barWidth: 2,
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(
+                show: true,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    color.withValues(alpha: 0.25),
+                    color.withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRangeSelector(
+      CorePalette c, BuildContext context, IhsgRange selected) {
+    return Row(
+      children: IhsgRange.values.map((range) {
+        final isSelected = range == selected;
+        return Expanded(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: isSelected
+                ? null
+                : () => context.read<IhsgCubit>().getIhsg(range),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: const EdgeInsets.symmetric(horizontal: 2),
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected ? c.primary : Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: CommonText(
+                  text: range.label,
+                  color: isSelected ? Colors.white : c.gray,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 
