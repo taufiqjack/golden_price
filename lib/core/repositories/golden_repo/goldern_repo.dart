@@ -16,18 +16,19 @@ class GoldenPriceRepository {
       var map = response.data;
 
       log.setInt(STATUSCODE, response.statusCode!);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && map is Map<String, dynamic>) {
         return GoldModel.fromJson(map);
       } else if (response.statusCode == 504) {
         if (context.mounted) {
           toast(context, 'error');
         }
+        throw Exception('Gold API timeout (504)');
       } else {
         if (context.mounted) {
           toast(context, log.getString(MESSAGE).toString());
         }
 
-        throw Exception('error');
+        throw Exception('Gold API error (${response.statusCode})');
       }
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();

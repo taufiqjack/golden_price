@@ -1,10 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:golden_price/core/constants/cons.dart';
 
+/// Reads a base URL from .env, trimming whitespace and a trailing slash.
+String envUrl(String key) {
+  final value = dotenv.env[key]?.trim() ?? '';
+  if (value.isEmpty) debugPrint('Missing $key in .env');
+  return value.endsWith('/') ? value.substring(0, value.length - 1) : value;
+}
+
 class RestConfig {
   static BaseOptions options() => BaseOptions(
-        baseUrl: '${dotenv.env[baseURL]}',
+        baseUrl: envUrl(baseURL),
         sendTimeout: const Duration(hours: 24),
         connectTimeout: const Duration(milliseconds: 100000),
         receiveTimeout: const Duration(milliseconds: 100000),
@@ -21,7 +29,7 @@ class RestConfig {
 
 class RestConfig2 {
   static BaseOptions options() => BaseOptions(
-        baseUrl: '${dotenv.env[baseURLCurr]}',
+        baseUrl: envUrl(baseURLCurr),
         sendTimeout: const Duration(hours: 24),
         connectTimeout: const Duration(milliseconds: 100000),
         receiveTimeout: const Duration(milliseconds: 100000),
@@ -38,7 +46,7 @@ class RestConfig2 {
 
 class RestConfigIDX {
   static BaseOptions options() => BaseOptions(
-        baseUrl: '${dotenv.env[baseURLIDX]}',
+        baseUrl: envUrl(baseURLIDX),
         headers: {
           'Accept': 'application/json, text/plain, */*',
         },

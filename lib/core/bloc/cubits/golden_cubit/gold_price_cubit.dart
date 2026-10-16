@@ -22,6 +22,9 @@ class GoldPriceCubit extends Cubit<GoldPriceState> {
         print(e);
       }
       emit(GoldPriceState.error(e.toString()));
+    } catch (e) {
+      debugPrint('getGoldPrice failed: $e');
+      emit(GoldPriceState.error(e.toString()));
     }
   }
 }
