@@ -7,7 +7,7 @@ class IhsgState {
   final String? error;
 
   const IhsgState({
-    this.range = IhsgRange.week,
+    this.range = IhsgRange.day,
     this.loading = true,
     this.data,
     this.error,
